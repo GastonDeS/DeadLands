@@ -40,6 +40,8 @@ public class Character : MonoBehaviour, IMovable
 
         if (Input.GetKey(KeyCode.W)) Move(Vector3.forward);
         if (Input.GetKey(KeyCode.S)) Move(-Vector3.forward);
+        if (Input.GetKey(KeyCode.A)) Move(-Vector3.right);
+        if (Input.GetKey(KeyCode.D)) Move(Vector3.right);
 
         transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X"), 0) * Time.deltaTime * RotationSpeed);
 
