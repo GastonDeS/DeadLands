@@ -17,7 +17,6 @@ public class Bullet : MonoBehaviour, IBullet, IMovable
     {
         _lifetimeController = this.gameObject.GetComponent<LifeTimeController>();
         _lifetimeController.SetLifeTime(_lifetime);
-        Debug.Log("lf " + _lifetimeController.IsLifeTimeOver());
     }
 
     void Update()
@@ -35,6 +34,8 @@ public class Bullet : MonoBehaviour, IBullet, IMovable
     public void OnCollisionEnter(Collision collision)
     {
         IDamageable damageable = collision.gameObject.GetComponent<IDamageable>();
-        damageable?.TakeDamage(10);
+        damageable?.TakeDamage(10); // TODO add damage value
+        Debug.Log("Bullet collided with " + collision.gameObject.name);
+        Destroy(this.gameObject);
     }
 }

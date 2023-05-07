@@ -17,7 +17,6 @@ public class LifeTimeController : MonoBehaviour
     void Update()
     {
         _currentLifeTime -= Time.deltaTime;
-        Debug.Log("currentlft " + _currentLifeTime);
     }
 
 
