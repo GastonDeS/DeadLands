@@ -13,11 +13,12 @@ public class Bullet : MonoBehaviour, IBullet, IMovable
     public float LifeTime => _lifetime;
     [SerializeField] private float _lifetime = 3f;
 
+    private bool hit = false;
+
     void Start()
     {
         _lifetimeController = this.gameObject.GetComponent<LifeTimeController>();
         _lifetimeController.SetLifeTime(_lifetime);
-        Debug.Log("lf " + _lifetimeController.IsLifeTimeOver());
     }
 
     void Update()
@@ -34,7 +35,11 @@ public class Bullet : MonoBehaviour, IBullet, IMovable
 
     public void OnCollisionEnter(Collision collision)
     {
+        if (hit) return;
+        hit = true;
         IDamageable damageable = collision.gameObject.GetComponent<IDamageable>();
-        damageable?.TakeDamage(10);
+        damageable?.TakeDamage(10); // TODO add damage value
+        Debug.Log("Bullet collided with " + collision.gameObject.name);
+        Destroy(this.gameObject);
     }
 }
