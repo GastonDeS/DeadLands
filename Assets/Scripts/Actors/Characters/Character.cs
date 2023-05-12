@@ -22,7 +22,10 @@ public class Character : MonoBehaviour, IMovable
     [SerializeField] private float _movementSpeed = 1f;
 
     public float RotationSpeed => _rotateSpeed;
-    [SerializeField] private float _rotateSpeed = 20f;
+    [SerializeField] private float _rotateSpeed = 0.2f;
+
+    private float accMouseX = 0;                     // reference for mouse look smoothing
+    public float mouseSnappiness = 20f;              // default was 10f; larger values of this cause less filtering, more responsiveness
 
 
     // Start is called before the first frame update
@@ -43,12 +46,21 @@ public class Character : MonoBehaviour, IMovable
         if (Input.GetKey(KeyCode.A)) Move(-Vector3.right);
         if (Input.GetKey(KeyCode.D)) Move(Vector3.right);
 
-        transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X"), 0) * Time.deltaTime * RotationSpeed);
+        ProcessLook();
 
         if (Input.GetKeyDown(KeyCode.Return)) _currentWeapon.Attack();
         if (Input.GetKeyDown(KeyCode.R)) _currentWeapon.Reload();
+    }
 
-        
+    void ProcessLook()
+    {
+        float inputLookX = Input.GetAxis( "Mouse X" );
+        accMouseX = Mathf.Lerp( accMouseX, inputLookX, mouseSnappiness * Time.deltaTime );
+ 
+        float mouseX = accMouseX * _rotateSpeed * 100f * Time.deltaTime;
+       
+        // rotate player Y
+        transform.Rotate( Vector3.up * mouseX );
     }
 
     private void EquipWeapon(Weapons weapon)

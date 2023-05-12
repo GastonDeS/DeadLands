@@ -24,6 +24,7 @@ public class LifeController : MonoBehaviour, IDamageable
     public void TakeDamage(int damage)
     {
         _currentLife -= damage;
+        Debug.Log("LifeController: " + this.gameObject.name + " took " + damage + " damage");
         if (!IsAlive()) Die();
     }
 
