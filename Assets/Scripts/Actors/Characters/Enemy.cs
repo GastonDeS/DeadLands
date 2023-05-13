@@ -14,6 +14,15 @@ public class Enemy : MonoBehaviour
     public NavMeshAgent agent;
     public GameObject agent2;
 
+    private Animator animator;
+
+    // animator variables
+
+    public void Start()
+    {
+        animator = GetComponentInChildren<Animator>();
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -27,8 +36,6 @@ public class Enemy : MonoBehaviour
 
     public void SetAgent2(GameObject agent2)
     {
-        Debug.Log("SetAgent2");
-        Debug.Log(agent2.ToString());
         this.agent2 = agent2;
     }
 
@@ -41,12 +48,19 @@ public class Enemy : MonoBehaviour
         hit=false;
     }
 
+    public void OnCollisionExit(Collision collision)
+    {
+        IDamageable damageable = collision.gameObject.GetComponent<IDamageable>();
+        animator.SetBool("attack", false);
+    }
+
     private void Attack(IDamageable damageable)
     {
         Debug.Log(damageable.ToString());
-        if (_currentAttackCooldown <= 0)
+        if (_currentAttackCooldown <= 0 && damageable != null)
         {
-            damageable?.TakeDamage(_damage);
+            damageable.TakeDamage(_damage);
+            animator.SetBool("attack", true);
             _currentAttackCooldown = _attackCooldown;
         }
     }
