@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour
+public class Enemy : LifeController
 {
     public float Damage => _damage;
     [SerializeField] private int _damage = 10;
@@ -16,11 +16,10 @@ public class Enemy : MonoBehaviour
 
     private Animator animator;
 
-    // animator variables
-
-    public void Start()
+    public new void Start()
     {
         animator = GetComponentInChildren<Animator>();
+        base.Start();
     }
 
     // Update is called once per frame
@@ -53,6 +52,13 @@ public class Enemy : MonoBehaviour
         IDamageable damageable = collision.gameObject.GetComponent<IDamageable>();
         animator.SetBool("attack", false);
     }
+
+    public override void Die() 
+    {
+        Destroy(this.gameObject, 2f);
+        animator.SetBool("death", true);
+    }
+
 
     private void Attack(IDamageable damageable)
     {

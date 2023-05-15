@@ -20,6 +20,13 @@ public class Gun : MonoBehaviour, IGun
     [SerializeField] private float _shootCooldown = .5f;
     private float _currentShootCooldown = 0;
 
+    private AudioSource _audioSource;
+
+    public void Start()
+    {
+        _audioSource = GetComponent<AudioSource>();
+    }
+
     public virtual void Attack()
     {
         if (HasBullets() && _currentShootCooldown <= 0)
@@ -27,6 +34,7 @@ public class Gun : MonoBehaviour, IGun
             _currentShootCooldown = _shootCooldown;
             _currentBulletCount--;
             Instantiate(_bulletPrefab, transform.position + transform.forward * 1, transform.rotation);
+            _audioSource?.Play();
         }
     }
 
