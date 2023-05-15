@@ -48,7 +48,7 @@ public class Character : MonoBehaviour, IMovable
 
         ProcessLook();
 
-        if (Input.GetKeyDown(KeyCode.Return)) _currentWeapon.Attack();
+        if (Input.GetKey(KeyCode.Return)) _currentWeapon.Attack();
         if (Input.GetKeyDown(KeyCode.R)) _currentWeapon.Reload();
     }
 

@@ -1627,7 +1627,6 @@ GameObject:
   - component: {fileID: 7694394371858395504}
   - component: {fileID: 5001516759648954789}
   - component: {fileID: 680794730784316517}
-  - component: {fileID: 5788998052682068267}
   - component: {fileID: 70941760462106689}
   m_Layer: 3
   m_Name: Enemy
@@ -1654,8 +1653,8 @@ Transform:
   - {fileID: 1186132319500880367}
   - {fileID: 6448573502933610224}
   - {fileID: 5294213704667290187}
-  - {fileID: 1517893175281517042}
   - {fileID: 6407477399494622929}
+  - {fileID: 1517893175281517042}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1697,20 +1696,6 @@ MonoBehaviour:
   _attackCooldown: 1
   agent: {fileID: 5001516759648954789}
   agent2: {fileID: 0}
---- !u!114 &5788998052682068267
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5212528273442059499}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76a134175d2c746529953da9f1aaeb6b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _maxLife: 50
-  _currentLife: 50
 --- !u!54 &70941760462106689
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2102,7 +2087,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7694394371858395504}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &140775572498057732
 MeshFilter:
@@ -3338,7 +3323,7 @@ Transform:
   - {fileID: 4041853429328818102}
   - {fileID: 8045211330922820382}
   m_Father: {fileID: 7694394371858395504}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &3918674279183209387
 Animator:

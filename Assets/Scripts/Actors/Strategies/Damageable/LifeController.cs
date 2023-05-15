@@ -14,7 +14,10 @@ public class LifeController : MonoBehaviour, IDamageable
 
     public bool IsAlive() => _currentLife > 0;
 
-    public void Die() => Destroy(this.gameObject);
+    public virtual void Die()
+    {
+        Destroy(this.gameObject);
+    }
 
     public void Start()
     {
@@ -24,7 +27,6 @@ public class LifeController : MonoBehaviour, IDamageable
     public void TakeDamage(int damage)
     {
         _currentLife -= damage;
-        Debug.Log("LifeController: " + this.gameObject.name + " took " + damage + " damage");
         if (!IsAlive()) Die();
     }
 
