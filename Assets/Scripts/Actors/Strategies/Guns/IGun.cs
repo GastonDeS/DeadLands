@@ -6,15 +6,14 @@ public interface IGun
 {
     //properties
 
-    GameObject BulletPrefab { get; }
     int Damage { get; }
     int MagZise { get; }
-    int CurrectBulletCount { get; }
+    int CurrentBulletCount { get; }
     float ShotCooldown { get; }
 
     // Actions
 
-    void Attack();
+    void Shoot();
 
     void Reload();
 }

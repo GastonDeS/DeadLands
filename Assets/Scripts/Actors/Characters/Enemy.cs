@@ -10,6 +10,7 @@ public class Enemy : LifeController
     [SerializeField] private float _attackCooldown = 1f;
     private float _currentAttackCooldown = 0;
     private bool hit = false;
+    private bool isDead = false;
 
     public NavMeshAgent agent;
     public GameObject agent2;
@@ -25,7 +26,7 @@ public class Enemy : LifeController
     // Update is called once per frame
     void Update()
     {
-        if (agent2 == null) return;
+        if (agent2 == null || isDead) return;
         agent.SetDestination(agent2.transform.position);
         if (_currentAttackCooldown >= 0)
         {
@@ -57,6 +58,13 @@ public class Enemy : LifeController
     {
         Destroy(this.gameObject, 2f);
         animator.SetBool("death", true);
+        isDead = true;
+        foreach(Collider m_Collider in gameObject.GetComponentsInChildren<Collider>())
+        {
+            m_Collider.enabled = false;
+        } 
+        agent.enabled = false;
+        gameObject.GetComponent<Rigidbody>().isKinematic = true;
     }
 
 

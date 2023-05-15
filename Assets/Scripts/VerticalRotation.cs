@@ -25,7 +25,6 @@ public class VerticalRotation : MonoBehaviour
  
         // rotate camera X
         xRotation += -mouseY ;
-        Debug.Log(xRotation);
         xRotation = Mathf.Clamp( xRotation, -clampLookY, clampLookY );
  
         transform.localRotation = Quaternion.Euler( xRotation, 0f, 0f );
