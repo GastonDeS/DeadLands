@@ -13,8 +13,6 @@ public class Character : LifeController, IMovable
     [SerializeField] private List<Gun> _availableWeapons;
     [SerializeField] private Gun _currentWeapon;
 
-    [SerializeField] private GameObject _bulletPrefab;
-
     public NavMeshAgent Agent => _agent;
     [SerializeField] private NavMeshAgent _agent;
 

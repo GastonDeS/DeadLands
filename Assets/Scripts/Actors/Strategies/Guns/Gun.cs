@@ -31,6 +31,8 @@ public class Gun : MonoBehaviour, IGun
     public float ShotCooldown => _shootCooldown;
     [SerializeField] private float _shootCooldown = .5f;
 
+    [SerializeField] private Camera _camera;
+
     private AudioSource _audioSource;
 
     public void Start()
@@ -65,13 +67,13 @@ public class Gun : MonoBehaviour, IGun
             ShootingSystem.Play();
             Vector3 direction = GetDirection();
             _audioSource?.Play();
-            if (Physics.Raycast(BulletSpawnPoint.position, direction, out RaycastHit hit, float.MaxValue))
+            if (Physics.Raycast(_camera.transform.position, direction, out RaycastHit hit, float.MaxValue))
             {
                 TrailRenderer trail = Instantiate(BulletTrail, BulletSpawnPoint.position, Quaternion.identity);
 
                 IDamageable damageable = hit.collider.GetComponentInParent<IDamageable>();
                 bool isDamageable = damageable != null;
-                if (isDamageable)
+                if (isDamageable && gameObject.GetComponentInParent<IDamageable>() != damageable)
                 {
                     damageable.TakeDamage(Damage);
                 }
