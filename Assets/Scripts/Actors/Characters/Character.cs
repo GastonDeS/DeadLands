@@ -50,6 +50,9 @@ public class Character : MonoBehaviour, IMovable
 
         if (Input.GetKey(KeyCode.Return)) _currentWeapon.Shoot();
         if (Input.GetKeyDown(KeyCode.R)) _currentWeapon.Reload();
+
+        // TODO: take damage dynamically
+        // if (Input.GetKeyDown(KeyCode.Z)) GetComponent<LifeController>().TakeDamage(10);
     }
 
     void ProcessLook()
