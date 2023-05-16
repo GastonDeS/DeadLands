@@ -485,7 +485,6 @@ GameObject:
   - component: {fileID: 6157784753201941946}
   - component: {fileID: 222089445}
   - component: {fileID: 222089446}
-  - component: {fileID: 222089444}
   m_Layer: 3
   m_Name: Character
   m_TagString: Untagged
@@ -525,6 +524,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d5a8eb30be29454387904e96b085087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxLife: 100
+  _currentLife: 100
+  _isMainCharacter: 1
   _availableWeapons:
   - {fileID: 3527624492010075126}
   - {fileID: 6692633205291214739}
@@ -587,20 +589,6 @@ CapsuleCollider:
   m_Height: 3.314516
   m_Direction: 1
   m_Center: {x: 0, y: 0.3136752, z: 0.5795305}
---- !u!114 &222089444
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8634824564980085290}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76a134175d2c746529953da9f1aaeb6b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _maxLife: 100
-  _currentLife: 100
 --- !u!1 &8767991164977075517
 GameObject:
   m_ObjectHideFlags: 0
