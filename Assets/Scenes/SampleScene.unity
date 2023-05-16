@@ -4475,6 +4475,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1449194628}
     m_Modifications:
+    - target: {fileID: 963194228, guid: 7e4f5a19d47254082a9454305fb31ea6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 963194228, guid: 7e4f5a19d47254082a9454305fb31ea6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 81641187608083251, guid: 7e4f5a19d47254082a9454305fb31ea6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.485
+      objectReference: {fileID: 0}
+    - target: {fileID: 81641187608083251, guid: 7e4f5a19d47254082a9454305fb31ea6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.413
+      objectReference: {fileID: 0}
+    - target: {fileID: 1668893096680857965, guid: 7e4f5a19d47254082a9454305fb31ea6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.028
+      objectReference: {fileID: 0}
+    - target: {fileID: 1668893096680857965, guid: 7e4f5a19d47254082a9454305fb31ea6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.017
+      objectReference: {fileID: 0}
     - target: {fileID: 3527624492010075126, guid: 7e4f5a19d47254082a9454305fb31ea6, type: 3}
       propertyPath: _camera
       value: 
@@ -4522,6 +4546,18 @@ PrefabInstance:
     - target: {fileID: 6269875511570625835, guid: 7e4f5a19d47254082a9454305fb31ea6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6617272238508683790, guid: 7e4f5a19d47254082a9454305fb31ea6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.39300042
+      objectReference: {fileID: 0}
+    - target: {fileID: 6617272238508683790, guid: 7e4f5a19d47254082a9454305fb31ea6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.39699998
+      objectReference: {fileID: 0}
+    - target: {fileID: 6617272238508683790, guid: 7e4f5a19d47254082a9454305fb31ea6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.144
       objectReference: {fileID: 0}
     - target: {fileID: 6692633205291214739, guid: 7e4f5a19d47254082a9454305fb31ea6, type: 3}
       propertyPath: _camera
