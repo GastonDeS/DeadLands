@@ -5,10 +5,10 @@ using UnityEngine.AI;
 
 public enum Weapons
 {
-    Pistol = 0, ShotGun = 1, MachineGun = 2
+    Pistol = 0, MachineGun = 1, ShotGun = 2
 }
 
-public class Character : MonoBehaviour, IMovable
+public class Character : LifeController, IMovable
 {
     [SerializeField] private List<Gun> _availableWeapons;
     [SerializeField] private Gun _currentWeapon;
@@ -29,17 +29,18 @@ public class Character : MonoBehaviour, IMovable
 
 
     // Start is called before the first frame update
-    void Start()
+    public new void Start()
     {
         EquipWeapon(Weapons.Pistol);
+        base.Start();
     }
 
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1)) EquipWeapon(Weapons.Pistol);
-        if (Input.GetKeyDown(KeyCode.Alpha2)) EquipWeapon(Weapons.ShotGun);
-        if (Input.GetKeyDown(KeyCode.Alpha3)) EquipWeapon(Weapons.MachineGun);
+        if (Input.GetKeyDown(KeyCode.Alpha2)) EquipWeapon(Weapons.MachineGun);
+        if (Input.GetKeyDown(KeyCode.Alpha3)) EquipWeapon(Weapons.ShotGun);
 
         if (Input.GetKey(KeyCode.W)) Move(Vector3.forward);
         if (Input.GetKey(KeyCode.S)) Move(-Vector3.forward);
@@ -74,6 +75,8 @@ public class Character : MonoBehaviour, IMovable
         }
         _currentWeapon = _availableWeapons[(int) weapon];
         _currentWeapon.gameObject.SetActive(true);
+
+        EventManager.instance.ActionWeaponChange((int) weapon);
     }
 
     public void Move(Vector3 direction)

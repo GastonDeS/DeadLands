@@ -42,6 +42,7 @@ public class Gun : MonoBehaviour, IGun
     public void Reload() 
     {
         _currentBulletCount = _magSize;
+        EventManager.instance.ActionWeaponAmmoChange(_currentBulletCount, _magSize);
     }
 
     private Animator Animator;
@@ -54,10 +55,12 @@ public class Gun : MonoBehaviour, IGun
 
     public void Shoot()
     {
-        if (LastShootTime + ShotCooldown < Time.time)
+        if (LastShootTime + ShotCooldown < Time.time && _currentBulletCount > 0)
         {
             // Use an object pool instead for these! To keep this tutorial focused, we'll skip implementing one.
             // For more details you can see: https://youtu.be/fsDE_mO4RZM or if using Unity 2021+: https://youtu.be/zyzqA_CPz2E
+            _currentBulletCount--;
+            EventManager.instance.ActionWeaponAmmoChange(_currentBulletCount, _magSize);
 
             ShootingSystem.Play();
             Vector3 direction = GetDirection();
