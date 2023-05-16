@@ -4475,10 +4475,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1449194628}
     m_Modifications:
-    - target: {fileID: 370924635458175842, guid: 7e4f5a19d47254082a9454305fb31ea6, type: 3}
-      propertyPath: _isMainCharacter
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6269875511570625835, guid: 7e4f5a19d47254082a9454305fb31ea6, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -4527,8 +4523,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Character
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 222089444, guid: 7e4f5a19d47254082a9454305fb31ea6, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e4f5a19d47254082a9454305fb31ea6, type: 3}
 --- !u!1 &378224953
 GameObject:
