@@ -74,6 +74,7 @@ public class Character : LifeController, IMovable
         _currentWeapon = _availableWeapons[(int) weapon];
         _currentWeapon.gameObject.SetActive(true);
 
+        _currentWeapon.Reload();
         EventManager.instance.ActionWeaponChange((int) weapon);
     }
 

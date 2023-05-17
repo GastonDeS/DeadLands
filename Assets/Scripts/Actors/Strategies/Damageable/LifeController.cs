@@ -12,7 +12,11 @@ public class LifeController : MonoBehaviour, IDamageable
 
     [SerializeField] private bool _isMainCharacter = false;
 
-    public void RecoverLife(int amount) => _currentLife += amount;
+    public void RecoverLife(int amount) 
+    {
+        _currentLife += amount;
+        ActionUpdateUILife();
+    }
 
     public bool IsAlive() => _currentLife > 0;
 
@@ -24,15 +28,18 @@ public class LifeController : MonoBehaviour, IDamageable
     public void Start()
     {
         _currentLife = _maxLife;
+        ActionUpdateUILife();
     }
 
     public void TakeDamage(int damage)
     {
         _currentLife -= damage;
 
-        if (_isMainCharacter) EventManager.instance.ActionCharacterLifeChange((float) CurrentLife, (float) MaxLife);
+        if (_isMainCharacter) ActionUpdateUILife();
 
         if (!IsAlive()) Die();
     }
+
+    private void ActionUpdateUILife() => EventManager.instance.ActionCharacterLifeChange((float) CurrentLife, (float) MaxLife);
 
 }
