@@ -536,6 +536,7 @@ MonoBehaviour:
   _movementSpeed: 1.5
   _rotateSpeed: 80
   mouseSnappiness: 20
+  leftStep: {fileID: 8300000, guid: b150c79fe9e7446ffa42d8f10a990893, type: 3}
 --- !u!195 &6157784753201941946
 NavMeshAgent:
   m_ObjectHideFlags: 0
