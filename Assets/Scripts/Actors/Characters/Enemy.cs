@@ -16,9 +16,13 @@ public class Enemy : LifeController
     public GameObject agent2;
 
     private Animator animator;
+    private AudioSource _audioSource;
+    [SerializeField] AudioClip _dyingSound;
+    [SerializeField] AudioClip _hitSound;
 
     public new void Start()
     {
+        _audioSource = GetComponent<AudioSource>();
         animator = GetComponentInChildren<Animator>();
         base.Start();
     }
@@ -57,6 +61,7 @@ public class Enemy : LifeController
     public override void Die() 
     {
         Destroy(this.gameObject, 2f);
+        _audioSource.PlayOneShot(_dyingSound);
         animator.applyRootMotion = true;
         animator.SetBool("death", true);
         isDead = true;
@@ -71,11 +76,11 @@ public class Enemy : LifeController
 
     private void Attack(IDamageable damageable)
     {
-        Debug.Log(damageable.ToString());
         if (_currentAttackCooldown <= 0 && damageable != null)
         {
             damageable.TakeDamage(_damage);
             animator.SetBool("attack", true);
+            _audioSource.PlayOneShot(_hitSound);
             _currentAttackCooldown = _attackCooldown;
         }
     }
