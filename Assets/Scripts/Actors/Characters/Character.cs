@@ -8,6 +8,7 @@ public enum Weapons
     Pistol = 0, AssaultRifle = 1
 }
 
+[RequireComponent(typeof(AudioSource))]
 public class Character : LifeController, IMovable
 {
     [SerializeField] private List<Gun> _availableWeapons;
@@ -25,10 +26,14 @@ public class Character : LifeController, IMovable
     private float accMouseX = 0;                     // reference for mouse look smoothing
     public float mouseSnappiness = 20f;              // default was 10f; larger values of this cause less filtering, more responsiveness
 
+    private AudioSource _audioSource;
+    [SerializeField] private AudioClip leftStep;
+    private bool isLeftStep = false;
 
     // Start is called before the first frame update
     public new void Start()
     {
+        _audioSource = GetComponent<AudioSource>();
         EquipWeapon(Weapons.Pistol);
         base.Start();
     }
@@ -78,9 +83,25 @@ public class Character : LifeController, IMovable
 
     public void Move(Vector3 direction)
     {
+        StartCoroutine(MoveSfxCoroutine());
         if (_agent.CalculatePath(transform.position + direction * MovementSpeed * Time.deltaTime, new UnityEngine.AI.NavMeshPath()))
         {
             transform.Translate(direction * MovementSpeed * Time.deltaTime);
+        }
+    }
+
+    IEnumerator MoveSfxCoroutine()
+    {
+        if (!_audioSource.isPlaying)
+        {
+            if (isLeftStep) {
+                _audioSource.Play();
+                isLeftStep = false;
+            } else {
+                _audioSource.PlayOneShot(leftStep);
+                isLeftStep = true;
+            }
+            yield return new WaitForSeconds(0.7f);
         }
     }
 }
