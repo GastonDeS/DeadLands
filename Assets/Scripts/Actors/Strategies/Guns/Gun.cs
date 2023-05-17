@@ -32,31 +32,39 @@ public class Gun : MonoBehaviour, IGun
     [SerializeField] private float _shootCooldown = .5f;
 
     [SerializeField] private Camera _camera;
+    private float LastShootTime;
+    private bool isReloading = false;
 
     private AudioSource _audioSource;
+    [SerializeField] AudioClip _reloadSound;
+    private Animator _animator;
 
     public void Start()
     {
         _audioSource = GetComponent<AudioSource>();
+        _animator = GetComponent<Animator>();
         _currentBulletCount = _magSize;
     }
 
-    public void Reload() 
+    public void Reload()
     {
+        if (isReloading) return;
+        StartCoroutine(ReloadCoroutine());
+    }
+
+    IEnumerator ReloadCoroutine()
+    {
+        isReloading = true;
+        _audioSource.PlayOneShot(_reloadSound);
+        yield return new WaitForSeconds(1f);
         _currentBulletCount = _magSize;
+        isReloading = false;
         EventManager.instance.ActionWeaponAmmoChange(_currentBulletCount, _magSize);
-    }
-
-    private Animator Animator;
-    private float LastShootTime;
-
-    private void Awake()
-    {
-        Animator = GetComponent<Animator>();
     }
 
     public void Shoot()
     {
+        if (isReloading) return;
         if (LastShootTime + ShotCooldown < Time.time && _currentBulletCount > 0)
         {
             // Use an object pool instead for these! To keep this tutorial focused, we'll skip implementing one.

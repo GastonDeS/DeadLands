@@ -57,6 +57,7 @@ public class Enemy : LifeController
     public override void Die() 
     {
         Destroy(this.gameObject, 2f);
+        animator.applyRootMotion = true;
         animator.SetBool("death", true);
         isDead = true;
         foreach(Collider m_Collider in gameObject.GetComponentsInChildren<Collider>())

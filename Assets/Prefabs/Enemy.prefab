@@ -175,6 +175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxLife: 100
   _currentLife: 0
+  _isMainCharacter: 0
   _damage: 10
   _attackCooldown: 1
   agent: {fileID: 5001516759648954789}
@@ -760,6 +761,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 7122db09428d8d149827cf7b2debf93a, type: 2}
+    - target: {fileID: 9500000, guid: abfe6fc5a9b390a488839c1fc3b58dcd, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 13700000, guid: abfe6fc5a9b390a488839c1fc3b58dcd, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
