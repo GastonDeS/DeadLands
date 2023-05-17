@@ -48,7 +48,7 @@ public class Gun : MonoBehaviour, IGun
 
     public void Reload()
     {
-        if (isReloading) return;
+        if (isReloading || _currentBulletCount == _magSize) return;
         StartCoroutine(ReloadCoroutine());
     }
 
