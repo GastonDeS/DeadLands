@@ -4491,6 +4491,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -0.413
       objectReference: {fileID: 0}
+    - target: {fileID: 370924635458175842, guid: 7e4f5a19d47254082a9454305fb31ea6, type: 3}
+      propertyPath: _availableWeapons.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1668893096680857965, guid: 7e4f5a19d47254082a9454305fb31ea6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -26.014

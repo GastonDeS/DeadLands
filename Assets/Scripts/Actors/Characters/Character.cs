@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public enum Weapons
 {
-    Pistol = 0, MachineGun = 1, ShotGun = 2
+    Pistol = 0, AssaultRifle = 1
 }
 
 public class Character : LifeController, IMovable
@@ -37,8 +37,7 @@ public class Character : LifeController, IMovable
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1)) EquipWeapon(Weapons.Pistol);
-        if (Input.GetKeyDown(KeyCode.Alpha2)) EquipWeapon(Weapons.MachineGun);
-        if (Input.GetKeyDown(KeyCode.Alpha3)) EquipWeapon(Weapons.ShotGun);
+        if (Input.GetKeyDown(KeyCode.Alpha2)) EquipWeapon(Weapons.AssaultRifle);
 
         if (Input.GetKey(KeyCode.W)) Move(Vector3.forward);
         if (Input.GetKey(KeyCode.S)) Move(-Vector3.forward);
