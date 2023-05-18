@@ -23,15 +23,11 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        // Set values
         _pauseFrame.SetActive(false);
         _victoryFrame.SetActive(false);
 
         EventManager.instance.OnLevelVictory += OnLevelVictory;
-    }
-
-    private void OnDestroy()
-    {
-        EventManager.instance.OnLevelVictory -= OnLevelVictory;
     }
 
     private void Update()
@@ -43,7 +39,13 @@ public class GameManager : MonoBehaviour
                 Pause();
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.V)) {
+            OnLevelVictory(true);
+        }
     }
+
+    #region PAUSE/RESUME
 
     public void Pause()
     {
@@ -61,11 +63,23 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
     }
 
+    #endregion
+
+    #region NEXT_LEVEL
+
+    public void NextLevel()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(UnityScenes.SampleScene.DisplayName());
+    }
+
+    #endregion
+
     private void OnLevelVictory(bool _isVictory) 
     {
         if (_isVictory) {
+            Time.timeScale = 0f;
             _victoryFrame.SetActive(true);
-            _hud.SetActive(false);
         } else {
             SceneManager.LoadScene(UnityScenes.Defeat.DisplayName());
         }

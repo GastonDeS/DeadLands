@@ -18,6 +18,12 @@ public class LifeController : MonoBehaviour, IDamageable
         ActionUpdateUILife();
     }
 
+    public void RecoverFullLife() 
+    {
+        _currentLife = _maxLife;
+        ActionUpdateUILife();
+    }
+
     public bool IsAlive() => _currentLife > 0;
 
     public virtual void Die()

@@ -77,8 +77,8 @@ public class Character : LifeController, IMovable
         }
         _currentWeapon = _availableWeapons[(int) weapon];
         _currentWeapon.gameObject.SetActive(true);
-
         EventManager.instance.ActionWeaponChange((int) weapon);
+        _currentWeapon.SetAmmo();
     }
 
     public void Move(Vector3 direction)

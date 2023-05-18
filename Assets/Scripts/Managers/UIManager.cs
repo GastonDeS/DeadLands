@@ -21,6 +21,7 @@ public class UIManager : MonoBehaviour
         EventManager.instance.OnCharacterLifeChange += OnCharacterLifeChange;
         EventManager.instance.OnWeaponChange        += OnWeaponChange;
         EventManager.instance.OnWeaponAmmoChange    += OnWeaponAmmoChange;
+        EventManager.instance.OnCoinsChange         += OnCoinsChange;
     }
 
     private void OnCharacterLifeChange(float currentLife, float maxLife)
@@ -32,4 +33,6 @@ public class UIManager : MonoBehaviour
     private void OnWeaponChange(int index) => _weapon.sprite = _weaponSprites[index];
     
     private void OnWeaponAmmoChange(int currentAmmo, int maxAmmo) => _ammo.text = $"{currentAmmo}/{maxAmmo}";
+
+    private void OnCoinsChange(int currentCoins) => _coinValue.text    = $"{currentCoins}";
 }

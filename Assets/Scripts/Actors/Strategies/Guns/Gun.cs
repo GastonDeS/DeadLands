@@ -52,6 +52,11 @@ public class Gun : MonoBehaviour, IGun
         StartCoroutine(ReloadCoroutine());
     }
 
+    public void SetAmmo() 
+    {
+        EventManager.instance.ActionWeaponAmmoChange(_currentBulletCount, _magSize);
+    }
+
     IEnumerator ReloadCoroutine()
     {
         isReloading = true;

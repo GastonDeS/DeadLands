@@ -12,6 +12,7 @@ public class EventManager : MonoBehaviour
     {
         if (instance != null) Destroy(this);
         instance = this;
+        Debug.Log("EventManager instance assigned.");
     }
     #endregion
 
@@ -26,10 +27,19 @@ public class EventManager : MonoBehaviour
     public void ActionCharacterLifeChange(float currentLife, float maxLife) => OnCharacterLifeChange(currentLife, maxLife);
 
     public event Action<int> OnWeaponChange;
-    public void ActionWeaponChange(int index) => OnWeaponChange(index);
+    public void ActionWeaponChange(int index) {
+        OnWeaponChange?.Invoke(index);
+    }
 
     public event Action<int, int> OnWeaponAmmoChange;
     public void ActionWeaponAmmoChange(int currentAmmo, int maxAmmo) => OnWeaponAmmoChange(currentAmmo, maxAmmo);
+
+    #endregion
+
+    #region COINS
+
+    public event Action<int> OnCoinsChange;
+    public void ActionCoinsChange(int currentCoins) => OnCoinsChange(currentCoins);
 
     #endregion
 }

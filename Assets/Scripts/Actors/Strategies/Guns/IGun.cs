@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IGun
 {
-    //properties
+    // Properties
 
     int Damage { get; }
     int MagZise { get; }
@@ -12,8 +12,6 @@ public interface IGun
     float ShotCooldown { get; }
 
     // Actions
-
     void Shoot();
-
     void Reload();
 }
