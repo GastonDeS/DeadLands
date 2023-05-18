@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Scenes;
+using Utilities;
 
 public class DefeatManager : MonoBehaviour
 {
