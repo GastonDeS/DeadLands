@@ -10,6 +10,7 @@ using Utilities;
 public class GameManager : MonoBehaviour
 {
     private bool _isPaused = false;
+    private int _lifePrice = 100;
     private GameObject _hud;
     private GameObject _pauseFrame;
     private GameObject _victoryFrame;
@@ -66,6 +67,12 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region NEXT_LEVEL
+
+    public void BuyLife()
+    {
+        EventManager.instance.ActionRecoverLife();
+        EventManager.instance.ActionSpend(_lifePrice);
+    }
 
     public void NextLevel()
     {

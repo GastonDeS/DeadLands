@@ -1058,6 +1058,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 462fcae3b3e42415fa8e49fd485e91eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _level: {fileID: 1919963501}
+  _totalKills: {fileID: 1989989085}
 --- !u!4 &1211706539
 Transform:
   m_ObjectHideFlags: 0

@@ -18848,8 +18848,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1458772731}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+      - m_Target: {fileID: 211095395}
+        m_TargetAssemblyTypeName: Coins, Assembly-CSharp
         m_MethodName: BuyLife
         m_Mode: 1
         m_Arguments:

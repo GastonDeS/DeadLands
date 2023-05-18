@@ -76,6 +76,7 @@ public class Enemy : LifeController
         } 
         agent.enabled = false;
         gameObject.GetComponent<Rigidbody>().isKinematic = true;
+        EventManager.instance.ActionNewKill();
     }
 
 

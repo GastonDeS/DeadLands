@@ -12,31 +12,24 @@ public class LifeController : MonoBehaviour, IDamageable
 
     [SerializeField] private bool _isMainCharacter = false;
 
-    public void RecoverLife(int amount) 
-    {
-        _currentLife += amount;
-        ActionUpdateUILife();
-    }
-
-    public void RecoverFullLife() 
-    {
-        _currentLife = _maxLife;
-        ActionUpdateUILife();
-    }
-
     public bool IsAlive() => _currentLife > 0;
 
     public virtual void Die()
     {
-        if (_isMainCharacter) EventManager.instance.ActionLevelVictory(false);
-        // TODO solve fix
-        Destroy(this.gameObject);
+        // if (_isMainCharacter)
+        // { 
+        //     EventManager.instance.ActionLevelVictory(false);
+        //     GetComponent<Character>().Defeat();
+        // }
+        // // TODO solve fix
+        // Destroy(this.gameObject);
     }
 
-    public void Start()
+    public virtual void Start()
     {
         _currentLife = _maxLife;
         ActionUpdateUILife();
+        EventManager.instance.OnRecoverLife += OnRecoverLife;
     }
 
     public void TakeDamage(int damage)
@@ -53,6 +46,21 @@ public class LifeController : MonoBehaviour, IDamageable
         _maxLife = newMaxLife;
         _currentLife = _maxLife;
         if (_isMainCharacter) ActionUpdateUILife();
+    }
+
+    public void RecoverLife(int amount)
+    {
+        if (_currentLife + amount >= _maxLife) {
+            _currentLife = _maxLife;
+        } else {
+            _currentLife += amount;
+        }
+    }
+
+    public void OnRecoverLife() 
+    {
+        _currentLife = _maxLife;
+        ActionUpdateUILife();
     }
 
     private void ActionUpdateUILife() => EventManager.instance?.ActionCharacterLifeChange((float) CurrentLife, (float) MaxLife);
