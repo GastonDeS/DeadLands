@@ -33,14 +33,8 @@ public class EventManager : MonoBehaviour
     }
 
     public event Action<int> OnWeaponChange;
-<<<<<<< HEAD
-    public void ActionWeaponChange(int index) 
-    {
-        OnWeaponChange?.Invoke(index);
-=======
     public void ActionWeaponChange(int index) {
        if (OnWeaponChange != null) OnWeaponChange(index);
->>>>>>> 24e75ff (feat: add coins logic)
     }
 
     public event Action<int, int> OnWeaponAmmoChange;
