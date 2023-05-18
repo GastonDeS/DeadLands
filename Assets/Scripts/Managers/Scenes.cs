@@ -12,6 +12,9 @@ namespace Scenes
 
       [Description("SampleScene")]
       SampleScene,
+
+      [Description("Market")]
+      Market,
       
       [Description("Settings")]
       Settings,
@@ -19,8 +22,8 @@ namespace Scenes
       [Description("Pause")]
       Pause,
 
-      [Description("Exit")]
-      Exit
+      [Description("Defeat")]
+      Defeat
   }
 
   public static class EnumExtensions

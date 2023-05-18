@@ -22,6 +22,8 @@ public class LifeController : MonoBehaviour, IDamageable
 
     public virtual void Die()
     {
+        if (_isMainCharacter) EventManager.instance.ActionLevelVictory(false);
+
         Destroy(this.gameObject);
     }
 

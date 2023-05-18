@@ -7,11 +7,18 @@ public class EventManager : MonoBehaviour
 {
     public static EventManager instance;
 
+    #region UNITY_EVENTS
     private void Awake()
     {
         if (instance != null) Destroy(this);
         instance = this;
     }
+    #endregion
+
+    #region GAME_MANAGER
+    public event Action<bool> OnLevelVictory;
+    public void ActionLevelVictory(bool _isVictory) => OnLevelVictory(_isVictory);
+    #endregion
 
     #region UI_ELEMENTS
 
