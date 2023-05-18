@@ -6,9 +6,6 @@ using Scenes;
 
 public class GameManager : MonoBehaviour
 {
-    // [SerializeField] private bool _isVictory = false;
-    // [SerializeField] private bool _isDefeat = false;
-
     private void Start()
     {
         EventManager.instance.OnLevelVictory += OnLevelVictory;
@@ -17,6 +14,11 @@ public class GameManager : MonoBehaviour
     private void OnDestroy()
     {
         EventManager.instance.OnLevelVictory -= OnLevelVictory;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape)) SceneManager.LoadScene(UnityScenes.Pause.DisplayName());
     }
 
     private void OnLevelVictory(bool _isVictory) 

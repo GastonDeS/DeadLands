@@ -15,9 +15,6 @@ namespace Scenes
 
       [Description("Market")]
       Market,
-      
-      [Description("Settings")]
-      Settings,
 
       [Description("Pause")]
       Pause,

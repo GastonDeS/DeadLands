@@ -8,7 +8,5 @@ public class MenuManager : MonoBehaviour
 {
     public void ActionPlay() => SceneManager.LoadScene(UnityScenes.SampleScene.DisplayName());
 
-    public void ActionSettings() => SceneManager.LoadScene(UnityScenes.Settings.DisplayName());
-
     public void ActionExit() => Application.Quit();
 }
