@@ -71,13 +71,14 @@ public class Character : LifeController, IMovable
 
     private void EquipWeapon(Weapons weapon)
     {
+        if ( _currentWeapon != null && _currentWeapon.IsReloading ) return;
         foreach (Gun gun in _availableWeapons)
         {
             gun.gameObject.SetActive(false);
         }
         _currentWeapon = _availableWeapons[(int) weapon];
         _currentWeapon.gameObject.SetActive(true);
-        EventManager.instance.ActionWeaponChange((int) weapon);
+        EventManager.instance?.ActionWeaponChange((int) weapon);
         _currentWeapon.SetAmmo();
     }
 

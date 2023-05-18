@@ -33,7 +33,8 @@ public class Gun : MonoBehaviour, IGun
 
     [SerializeField] private Camera _camera;
     private float LastShootTime;
-    private bool isReloading = false;
+    public bool IsReloading => _isReloading;
+    private bool _isReloading = false;
 
     private AudioSource _audioSource;
     [SerializeField] AudioClip _reloadSound;
@@ -48,34 +49,34 @@ public class Gun : MonoBehaviour, IGun
 
     public void Reload()
     {
-        if (isReloading || _currentBulletCount == _magSize) return;
+        if (_isReloading || _currentBulletCount == _magSize) return;
         StartCoroutine(ReloadCoroutine());
     }
 
     public void SetAmmo() 
     {
-        EventManager.instance.ActionWeaponAmmoChange(_currentBulletCount, _magSize);
+        EventManager.instance?.ActionWeaponAmmoChange(_currentBulletCount, _magSize);
     }
 
     IEnumerator ReloadCoroutine()
     {
-        isReloading = true;
+        _isReloading = true;
         _audioSource.PlayOneShot(_reloadSound);
         yield return new WaitForSeconds(1f);
         _currentBulletCount = _magSize;
-        isReloading = false;
-        EventManager.instance.ActionWeaponAmmoChange(_currentBulletCount, _magSize);
+        _isReloading = false;
+        EventManager.instance?.ActionWeaponAmmoChange(_currentBulletCount, _magSize);
     }
 
     public void Shoot()
     {
-        if (isReloading) return;
+        if (_isReloading) return;
         if (LastShootTime + ShotCooldown < Time.time && _currentBulletCount > 0)
         {
             // Use an object pool instead for these! To keep this tutorial focused, we'll skip implementing one.
             // For more details you can see: https://youtu.be/fsDE_mO4RZM or if using Unity 2021+: https://youtu.be/zyzqA_CPz2E
             _currentBulletCount--;
-            EventManager.instance.ActionWeaponAmmoChange(_currentBulletCount, _magSize);
+            EventManager.instance?.ActionWeaponAmmoChange(_currentBulletCount, _magSize);
 
             ShootingSystem.Play();
             Vector3 direction = GetDirection();

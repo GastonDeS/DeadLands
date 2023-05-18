@@ -24,22 +24,29 @@ public class EventManager : MonoBehaviour
     #region UI_ELEMENTS
 
     public event Action<float, float> OnCharacterLifeChange;
-    public void ActionCharacterLifeChange(float currentLife, float maxLife) => OnCharacterLifeChange(currentLife, maxLife);
+    public void ActionCharacterLifeChange(float currentLife, float maxLife) {
+        OnCharacterLifeChange?.Invoke(currentLife, maxLife);
+    }
 
     public event Action<int> OnWeaponChange;
-    public void ActionWeaponChange(int index) {
+    public void ActionWeaponChange(int index) 
+    {
         OnWeaponChange?.Invoke(index);
     }
 
     public event Action<int, int> OnWeaponAmmoChange;
-    public void ActionWeaponAmmoChange(int currentAmmo, int maxAmmo) => OnWeaponAmmoChange(currentAmmo, maxAmmo);
+    public void ActionWeaponAmmoChange(int currentAmmo, int maxAmmo) {
+        OnWeaponAmmoChange?.Invoke(currentAmmo, maxAmmo);
+    }
 
     #endregion
 
     #region COINS
 
     public event Action<int> OnCoinsChange;
-    public void ActionCoinsChange(int currentCoins) => OnCoinsChange(currentCoins);
+    public void ActionCoinsChange(int currentCoins) {
+        OnCoinsChange?.Invoke(currentCoins);
+    }
 
     #endregion
 }

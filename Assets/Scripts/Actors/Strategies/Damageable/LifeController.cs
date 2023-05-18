@@ -55,6 +55,6 @@ public class LifeController : MonoBehaviour, IDamageable
         if (_isMainCharacter) ActionUpdateUILife();
     }
 
-    private void ActionUpdateUILife() => EventManager.instance.ActionCharacterLifeChange((float) CurrentLife, (float) MaxLife);
+    private void ActionUpdateUILife() => EventManager.instance?.ActionCharacterLifeChange((float) CurrentLife, (float) MaxLife);
 
 }
