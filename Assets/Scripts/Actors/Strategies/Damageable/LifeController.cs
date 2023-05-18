@@ -23,7 +23,7 @@ public class LifeController : MonoBehaviour, IDamageable
     public virtual void Die()
     {
         if (_isMainCharacter) EventManager.instance.ActionLevelVictory(false);
-
+        // TODO solve fix
         Destroy(this.gameObject);
     }
 
@@ -40,6 +40,13 @@ public class LifeController : MonoBehaviour, IDamageable
         if (_isMainCharacter) ActionUpdateUILife();
 
         if (!IsAlive()) Die();
+    }
+
+    public void UpdateMaxLife(int newMaxLife) 
+    {
+        _maxLife = newMaxLife;
+        _currentLife = _maxLife;
+        if (_isMainCharacter) ActionUpdateUILife();
     }
 
     private void ActionUpdateUILife() => EventManager.instance.ActionCharacterLifeChange((float) CurrentLife, (float) MaxLife);

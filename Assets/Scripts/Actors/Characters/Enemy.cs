@@ -38,6 +38,11 @@ public class Enemy : LifeController
         }
     }
 
+    public void BoostStats(float statsBoost) {
+        _damage = (int) (_damage * statsBoost);
+        UpdateMaxLife((int) (MaxLife * statsBoost));
+    }
+
     public void SetAgent2(GameObject agent2)
     {
         this.agent2 = agent2;

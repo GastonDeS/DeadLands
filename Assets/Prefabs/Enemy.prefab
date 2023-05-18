@@ -175,7 +175,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxLife: 100
-  _currentLife: 0
+  _currentLife: 100
   _isMainCharacter: 0
   _damage: 10
   _attackCooldown: 1
