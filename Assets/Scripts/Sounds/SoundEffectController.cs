@@ -1,54 +1,65 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
+[RequireComponent(typeof(AudioSource))]
 public class SoundEffectController : MonoBehaviour, IListenable
 {
+    private static SoundEffectController instance = null;
     #region IListenable_Properties
+    public AudioClip AudioClip => _audioClip;
+    [SerializeField] private AudioClip _audioClip;
 
-    public GameObject SoundObject => _soundObject;
-    [SerializeField] private GameObject _soundObject;
-
-    public Slider VolumeSlider => _volumeSlider;
-    [SerializeField] private Slider _volumeSlider;
+    public AudioSource AudioSource => _audioSource;
 
     public float Volume => _volume;
     [Range(0f, 1f)]
-    [SerializeField] private float _volume;
+    [SerializeField] private float _volume = 1;
 
-    #endregion
+    public bool Mute => _mute;
+    [SerializeField] private bool _mute = false;
 
     private AudioSource _audioSource;
+    #endregion
 
     #region IListenable_Methods
     public void InitAudioSource()
     {
-        // Asignar el componente AudioSource
-        _soundObject = GameObject.FindGameObjectWithTag("BackgroundSound");
-        _audioSource = _soundObject.GetComponent<AudioSource>();
-        // Asignamos el audio clip al AudioSource
-        _volume = PlayerPrefs.GetFloat("volume");
+        _audioSource        = GetComponent<AudioSource>();
+        _audioSource.clip   = _audioClip;
         _audioSource.volume = _volume;
-        _volumeSlider.value = _volume;
+        _audioSource.mute   = _mute;
     }
 
-    public void Play() => _audioSource.Play();
+    public void PlayOneShot() => _audioSource.PlayOneShot(AudioClip);
 
-    public void Stop() => _audioSource.Stop();
+    public void Play() {
+        _audioSource.Play();
+        _mute = false;
+    }
+
+    public void Stop() {
+        _audioSource.Stop();
+        _mute = true;
+    } 
 
     public void Pause() => _audioSource.Pause();
-
-    public void UpdateVolume(float volume) {
-        _volume = volume;
-        _audioSource.volume = _volume;
-        PlayerPrefs.SetFloat("volume", _volume);
-    }
    
     #endregion
 
     #region Unity_Events
-    // Start is called before the first frame update
+    private void Awake()
+    {
+        if (instance == null)
+        { 
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+            return;
+        }
+        if (instance == this) return; 
+        Destroy(gameObject);
+    }
+
     void Start()
     {
         InitAudioSource();
@@ -56,9 +67,14 @@ public class SoundEffectController : MonoBehaviour, IListenable
 
     void Update()
     {
-        _audioSource.volume = _volume;
+        if (Input.GetKeyDown(KeyCode.P)) {
+            if (_mute) {
+                Play();
+            } else {
+                Stop();
+            }
+        }
     }
 
     #endregion
 }
-
