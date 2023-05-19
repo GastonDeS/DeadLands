@@ -30,16 +30,12 @@ public class Character : LifeController, IMovable
     [SerializeField] private AudioClip leftStep;
     private bool isLeftStep = false;
 
-    private int _currentCoins;
-    private int _totalKills;
-    private int _currentLevel;
+    private static int _currentCoins;
 
     // Start is called before the first frame update
     public new void Start()
     {
-        _totalKills   = 0;
-        _currentLevel = 1;
-        _currentCoins = 200;
+        _currentCoins = 0;
         _audioSource  = GetComponent<AudioSource>();
         
         EquipWeapon(Weapons.Pistol);
@@ -65,12 +61,11 @@ public class Character : LifeController, IMovable
         if (Input.GetKeyDown(KeyCode.R)) _currentWeapon.Reload();
 
         // TODO: take damage dynamically
-        if (Input.GetKeyDown(KeyCode.Z)) GetComponent<LifeController>().Die();
+        // if (Input.GetKeyDown(KeyCode.Z)) Die();
     }
 
     public override void Die() 
     {
-        EventManager.instance.ActionDefeat(_currentLevel, _totalKills);
         EventManager.instance.ActionLevelVictory(false);
         Destroy(this.gameObject);
     }
@@ -124,9 +119,10 @@ public class Character : LifeController, IMovable
     }
 
     public void OnNewKill() {
-        _totalKills++;
-        if (_totalKills % 5 == 0) {
+        MainManager.instance.NewKill();
+        if (MainManager.instance.TotalKills() % 5 == 0) {
             _currentCoins++;
+            EventManager.instance.ActionCoinsChange(_currentCoins);
         }
     }
 

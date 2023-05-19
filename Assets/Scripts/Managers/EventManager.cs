@@ -56,10 +56,10 @@ public class EventManager : MonoBehaviour
 
     #region STATS
 
-    public event Action<int, int> OnDefeat;
-    public void ActionDefeat(int level, int totalKills) 
+    public event Action<int> OnLevelChange;
+    public void ActionLevelChange(int level) 
     {
-        if (OnDefeat != null) OnDefeat(level, totalKills);
+        if (OnLevelChange != null) OnLevelChange(level);
     }
 
     public event Action OnNewKill;

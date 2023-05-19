@@ -16,12 +16,15 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image           _weapon;
     [SerializeField] private TextMeshProUGUI _ammo;
 
+    [SerializeField] private TextMeshProUGUI _level;
+
     private void Start() 
     {
         EventManager.instance.OnCharacterLifeChange += OnCharacterLifeChange;
         EventManager.instance.OnWeaponChange        += OnWeaponChange;
         EventManager.instance.OnWeaponAmmoChange    += OnWeaponAmmoChange;
         EventManager.instance.OnCoinsChange         += OnCoinsChange;
+        EventManager.instance.OnLevelChange         += OnLevelChange;
     }
 
     private void OnCharacterLifeChange(float currentLife, float maxLife)
@@ -35,4 +38,6 @@ public class UIManager : MonoBehaviour
     private void OnWeaponAmmoChange(int currentAmmo, int maxAmmo) => _ammo.text = $"{currentAmmo}/{maxAmmo}";
 
     private void OnCoinsChange(int currentCoins) => _coinValue.text    = $"{currentCoins}";
+
+    private void OnLevelChange(int level) => _level.text = $"{level}";
 }

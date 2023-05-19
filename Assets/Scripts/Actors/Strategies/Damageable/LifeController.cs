@@ -16,13 +16,7 @@ public class LifeController : MonoBehaviour, IDamageable
 
     public virtual void Die()
     {
-        // if (_isMainCharacter)
-        // { 
-        //     EventManager.instance.ActionLevelVictory(false);
-        //     GetComponent<Character>().Defeat();
-        // }
-        // // TODO solve fix
-        // Destroy(this.gameObject);
+        // Must be implemented by child classes
     }
 
     public virtual void Start()

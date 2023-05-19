@@ -10,7 +10,7 @@ using Utilities;
 public class GameManager : MonoBehaviour
 {
     private bool _isPaused = false;
-    private int _lifePrice = 100;
+    private int _lifePrice = 10;
     private GameObject _hud;
     private GameObject _pauseFrame;
     private GameObject _victoryFrame;
@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
     public void NextLevel()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(UnityScenes.SampleScene.DisplayName());
+        _victoryFrame.SetActive(false);
     }
 
     #endregion

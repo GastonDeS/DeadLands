@@ -10,17 +10,12 @@ public class DefeatManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _level;
     [SerializeField] private TextMeshProUGUI _totalKills;
 
-    private void Start() 
+    public void Start() 
     {
-        EventManager.instance.OnDefeat += OnDefeat;
+        _level.text      = MainManager.instance.CurrentLevel().ToString();
+        _totalKills.text = MainManager.instance.TotalKills().ToString();
     }
-
-    private void OnDefeat(int level, int totalKills)
-    {
-        _level.text = $"{level}";
-        _totalKills.text = $"{totalKills}";
-    }
-
+    
     public void ActionRestart() => SceneManager.LoadScene(UnityScenes.SampleScene.DisplayName());
 
     public void ActionExit() => Application.Quit();
