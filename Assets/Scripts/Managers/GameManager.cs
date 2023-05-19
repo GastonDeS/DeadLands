@@ -68,6 +68,8 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
     }
 
+    public void ActionExit() => Application.Quit();
+
     #endregion
 
     #region VICTORY/DEFEAT
