@@ -40,7 +40,8 @@ public class MainManager : MonoBehaviour
 
     #endregion
 
-    #region  MAIN MANAGER METHODS
+    #region  KILLS AND LEVELS
+
     public void NewKill() 
     {
       _totalKills++;

@@ -9,7 +9,8 @@ public class SpawnerManager : MonoBehaviour
     private float _levelEnemiesStatsBoostPercent = 1;
     private Spawner[] _spawners;
 
-    // Start is called before the first frame update
+    #region UNITY EVENTS
+
     void Start()
     {
         EventManager.instance.OnBoostEnemies      += BoostEnemies;
@@ -20,16 +21,19 @@ public class SpawnerManager : MonoBehaviour
         DistributeZombies();
     }
 
+    #endregion
+
+    #region METHODS
+
     private void BoostEnemies()
     {
-        Debug.Log("BOOSTING ENEMIES");
         if (MainManager.instance.CurrentLevel() == 1) return;
         if (MainManager.instance.CurrentLevel() % 2 == 1) {
-            // upgrade life
+            // Boost stats
             _levelEnemiesStatsBoostPercent *= 1.05f; // 5 % more life and damage
         } else {
-            // update amount
-            _levelEnemiesAmount = (int) Math.Ceiling(_levelEnemiesAmount * 1.2f); // 20 % more enemies
+            // Boost amount
+            _levelEnemiesAmount = (int) Math.Ceiling(_levelEnemiesAmount * 1.2f); // 20% more enemies
         }
         MainManager.instance.SetCurrentLevelKills(_levelEnemiesAmount);
     }
@@ -46,4 +50,6 @@ public class SpawnerManager : MonoBehaviour
             StartCoroutine(_spawners[i].Spawn());
         }
     }
+
+    #endregion
 }

@@ -6,7 +6,8 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
-     // Properties
+    #region PROPERTIES
+
     [SerializeField] private Image           _lifeBar;
     [SerializeField] private TextMeshProUGUI _lifeValue;
 
@@ -18,6 +19,10 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI _level;
 
+    #endregion
+
+    #region UNITY EVENTS
+
     private void Start() 
     {
         EventManager.instance.OnCharacterLifeChange += OnCharacterLifeChange;
@@ -26,6 +31,10 @@ public class UIManager : MonoBehaviour
         EventManager.instance.OnCoinsChange         += OnCoinsChange;
         EventManager.instance.OnLevelChange         += OnLevelChange;
     }
+
+    #endregion
+
+    #region SUBSCRIBERS
 
     private void OnCharacterLifeChange(float currentLife, float maxLife)
     {
@@ -40,4 +49,6 @@ public class UIManager : MonoBehaviour
     private void OnCoinsChange(int currentCoins) => _coinValue.text    = $"{currentCoins}";
 
     private void OnLevelChange(int level) => _level.text = $"{level}";
+
+    #endregion
 }

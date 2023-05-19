@@ -29,7 +29,7 @@ public class EventManager : MonoBehaviour
 
     public event Action<float, float> OnCharacterLifeChange;
     public void ActionCharacterLifeChange(float currentLife, float maxLife) {
-        OnCharacterLifeChange?.Invoke(currentLife, maxLife);
+        if (OnCharacterLifeChange != null) OnCharacterLifeChange(currentLife, maxLife);
     }
 
     public event Action<int> OnWeaponChange;
@@ -39,7 +39,7 @@ public class EventManager : MonoBehaviour
 
     public event Action<int, int> OnWeaponAmmoChange;
     public void ActionWeaponAmmoChange(int currentAmmo, int maxAmmo) {
-        OnWeaponAmmoChange?.Invoke(currentAmmo, maxAmmo);
+        if (OnWeaponAmmoChange != null) OnWeaponAmmoChange(currentAmmo, maxAmmo);
     }
 
     public event Action<int> OnLevelChange;
@@ -56,7 +56,7 @@ public class EventManager : MonoBehaviour
 
     #endregion
 
-    #region LIFE
+    #region MARKET
 
     public event Action OnRecoverLife;
     public void ActionRecoverLife() 
@@ -72,7 +72,7 @@ public class EventManager : MonoBehaviour
 
     #endregion
 
-    #region LEVEL
+    #region ENEMY KILLS
 
     public event Action OnNewKill;
     public void ActionNewKill() 
