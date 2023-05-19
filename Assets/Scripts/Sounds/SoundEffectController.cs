@@ -6,7 +6,9 @@ using UnityEngine;
 public class SoundEffectController : MonoBehaviour, IListenable
 {
     private static SoundEffectController instance = null;
-    #region IListenable_Properties
+
+    #region PROPERTIES
+
     public AudioClip AudioClip => _audioClip;
     [SerializeField] private AudioClip _audioClip;
 
@@ -20,34 +22,11 @@ public class SoundEffectController : MonoBehaviour, IListenable
     [SerializeField] private bool _mute = false;
 
     private AudioSource _audioSource;
+
     #endregion
 
-    #region IListenable_Methods
-    public void InitAudioSource()
-    {
-        _audioSource        = GetComponent<AudioSource>();
-        _audioSource.clip   = _audioClip;
-        _audioSource.volume = _volume;
-        _audioSource.mute   = _mute;
-    }
+    #region UNITY EVENTS
 
-    public void PlayOneShot() => _audioSource.PlayOneShot(AudioClip);
-
-    public void Play() {
-        _audioSource.Play();
-        _mute = false;
-    }
-
-    public void Stop() {
-        _audioSource.Stop();
-        _mute = true;
-    } 
-
-    public void Pause() => _audioSource.Pause();
-   
-    #endregion
-
-    #region Unity_Events
     private void Awake()
     {
         if (instance == null)
@@ -76,5 +55,31 @@ public class SoundEffectController : MonoBehaviour, IListenable
         }
     }
 
+    #endregion
+
+    #region METHODS
+
+    public void InitAudioSource()
+    {
+        _audioSource        = GetComponent<AudioSource>();
+        _audioSource.clip   = _audioClip;
+        _audioSource.volume = _volume;
+        _audioSource.mute   = _mute;
+    }
+
+    public void PlayOneShot() => _audioSource.PlayOneShot(AudioClip);
+
+    public void Play() {
+        _audioSource.Play();
+        _mute = false;
+    }
+
+    public void Stop() {
+        _audioSource.Stop();
+        _mute = true;
+    } 
+
+    public void Pause() => _audioSource.Pause();
+   
     #endregion
 }
