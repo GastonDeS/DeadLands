@@ -22,14 +22,13 @@ public class SpawnerManager : MonoBehaviour
 
     private void BoostEnemies()
     {
-        Debug.Log("BOOSTING ENEMIES");
         if (MainManager.instance.CurrentLevel() == 1) return;
         if (MainManager.instance.CurrentLevel() % 2 == 1) {
-            // upgrade life
-            _levelEnemiesStatsBoostPercent *= 1.05f; // 5 % more life
+            // Boost life
+            _levelEnemiesStatsBoostPercent *= 1.05f; // 5% more life
         } else {
-            // update amount
-            _levelEnemiesAmount = (int) Math.Ceiling(_levelEnemiesAmount * 1.2f); // 20 % more enemies
+            // Boost amount
+            _levelEnemiesAmount = (int) Math.Ceiling(_levelEnemiesAmount * 1.2f); // 20% more enemies
         }
         MainManager.instance.SetCurrentLevelKills(_levelEnemiesAmount);
     }

@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     private GameObject _pauseFrame;
     private GameObject _victoryFrame;
 
+    #region UNITY EVENTS
+
     private void Awake()
     {
         _hud          = GameObject.Find(UnityObjects.Hud.DisplayName());
@@ -45,6 +47,8 @@ public class GameManager : MonoBehaviour
             OnLevelVictory(true);
         }
     }
+    
+    #endregion
 
     #region PAUSE/RESUME
 
@@ -66,7 +70,7 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
-    #region NEXT_LEVEL
+    #region VICTORY/DEFEAT
 
     public void BuyLife()
     {
@@ -82,9 +86,7 @@ public class GameManager : MonoBehaviour
         EventManager.instance.ActionDistributeEnemies();
     }
 
-    #endregion
-
-    private void OnLevelVictory(bool _isVictory) 
+        private void OnLevelVictory(bool _isVictory) 
     {
         if (_isVictory) {
             Time.timeScale = 0f;
@@ -94,4 +96,6 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    #endregion
 }

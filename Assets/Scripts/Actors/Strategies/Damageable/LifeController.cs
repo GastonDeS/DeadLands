@@ -22,7 +22,9 @@ public class LifeController : MonoBehaviour, IDamageable
     public virtual void Start()
     {
         _currentLife = _maxLife;
-        ActionUpdateUILife();
+        if (_isMainCharacter) ActionUpdateUILife();
+
+        // Subscribe event
         EventManager.instance.OnRecoverLife += OnRecoverLife;
     }
 

@@ -32,19 +32,19 @@ public class Character : LifeController, IMovable
 
     private static int _currentCoins;
 
-    // Start is called before the first frame update
     public new void Start()
     {
         _currentCoins = 0;
         _audioSource  = GetComponent<AudioSource>();
-        
         EquipWeapon(Weapons.Pistol);
+
+        // Subscribe events
         EventManager.instance.OnNewKill += OnNewKill;
         EventManager.instance.OnSpend += OnSpend;
+
         base.Start();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1)) EquipWeapon(Weapons.Pistol);
@@ -59,9 +59,6 @@ public class Character : LifeController, IMovable
 
         if (Input.GetKey(KeyCode.Return)) _currentWeapon.Shoot();
         if (Input.GetKeyDown(KeyCode.R)) _currentWeapon.Reload();
-
-        // TODO: take damage dynamically
-        // if (Input.GetKeyDown(KeyCode.Z)) Die();
     }
 
     public override void Die() 
@@ -77,7 +74,7 @@ public class Character : LifeController, IMovable
  
         float mouseX = accMouseX * _rotateSpeed * 100f * Time.deltaTime;
        
-        // rotate player Y
+        // Rotate player Y
         transform.Rotate( Vector3.up * mouseX );
     }
 
