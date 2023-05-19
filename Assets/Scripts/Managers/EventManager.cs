@@ -42,9 +42,11 @@ public class EventManager : MonoBehaviour
         OnWeaponAmmoChange?.Invoke(currentAmmo, maxAmmo);
     }
 
-    #endregion
-
-    #region COINS
+    public event Action<int> OnLevelChange;
+    public void ActionLevelChange(int level) 
+    {
+        if (OnLevelChange != null) OnLevelChange(level);
+    }
 
     public event Action<int> OnCoinsChange;
     public void ActionCoinsChange(int currentCoins) 
@@ -54,19 +56,7 @@ public class EventManager : MonoBehaviour
 
     #endregion
 
-    #region STATS
-
-    public event Action<int> OnLevelChange;
-    public void ActionLevelChange(int level) 
-    {
-        if (OnLevelChange != null) OnLevelChange(level);
-    }
-
-    public event Action OnNewKill;
-    public void ActionNewKill() 
-    {
-        if (OnNewKill != null) OnNewKill();
-    }
+    #region LIFE
 
     public event Action OnRecoverLife;
     public void ActionRecoverLife() 
@@ -78,6 +68,28 @@ public class EventManager : MonoBehaviour
     public void ActionSpend(int amount) 
     {
         if (OnSpend != null) OnSpend(amount);
+    }
+
+    #endregion
+
+    #region LEVEL
+
+    public event Action OnNewKill;
+    public void ActionNewKill() 
+    {
+        if (OnNewKill != null) OnNewKill();
+    }
+
+    public event Action OnBoostEnemies;
+    public void ActionBoostEnemies() 
+    {
+        if (OnBoostEnemies != null) OnBoostEnemies();
+    }
+
+    public event Action OnDistributeEnemies;
+    public void ActionDistributeEnemies() 
+    {
+        if (OnDistributeEnemies != null) OnDistributeEnemies();
     }
 
     #endregion

@@ -10,6 +10,9 @@ public class MainManager : MonoBehaviour
     public int CurrentLevel() => _currentLevel;
     private static int _currentLevel;
 
+    public int CurrentLevelKills() => _currentLevelKills;
+    private static int _currentLevelKills;
+
     public static MainManager instance; 
     
     private void Awake()
@@ -29,13 +32,20 @@ public class MainManager : MonoBehaviour
       _currentLevel = 1;
     }
 
-    public int NewKill() 
+    public void NewKill() 
     {
-      return ++_totalKills;
+      _totalKills++;
+      _currentLevelKills--;
+      Debug.Log(_currentLevelKills);
+      if (_currentLevelKills == 0) { // New level unlocked
+        _currentLevel++;
+        EventManager.instance.ActionLevelChange(_currentLevel);
+        EventManager.instance.ActionLevelVictory(true);
+      }
     }
 
-    public void LevelVictory() 
-    {
-      _currentLevel++;
+    public void SetCurrentLevelKills(int amount) {
+      _currentLevelKills = amount;
+      Debug.Log(_currentLevelKills);
     }
 }

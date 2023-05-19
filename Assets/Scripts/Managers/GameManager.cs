@@ -78,6 +78,8 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         _victoryFrame.SetActive(false);
+        EventManager.instance.ActionBoostEnemies();
+        EventManager.instance.ActionDistributeEnemies();
     }
 
     #endregion
@@ -89,6 +91,7 @@ public class GameManager : MonoBehaviour
             _victoryFrame.SetActive(true);
         } else {
             SceneManager.LoadScene(UnityScenes.Defeat.DisplayName());
+            Destroy(gameObject);
         }
     }
 }

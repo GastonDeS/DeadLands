@@ -15,12 +15,7 @@ public class Spawner : MonoBehaviour
 
     private int _enemyCount = 0;
 
-    void Start()
-    {
-        
-    }
-
-    public void SetLevelStats(int enemyCount, float statsBoost )
+    public void SetLevelStats(int enemyCount, float statsBoost)
     {
         _enemyCount = enemyCount;
         _statsBoost = statsBoost;
