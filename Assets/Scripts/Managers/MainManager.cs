@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MainManager : MonoBehaviour
 {
+    #region PROPERTIES
+
     public int TotalKills() => _totalKills;
     private static int _totalKills;
 
@@ -14,7 +16,11 @@ public class MainManager : MonoBehaviour
     private static int _currentLevelKills;
 
     public static MainManager instance; 
+
+    #endregion
     
+    #region UNITY_EVENTS
+
     private void Awake()
     {
         if (instance != null)
@@ -32,20 +38,34 @@ public class MainManager : MonoBehaviour
       _currentLevel = 1;
     }
 
+    #endregion
+
+    #region  MAIN MANAGER METHODS
     public void NewKill() 
     {
       _totalKills++;
       _currentLevelKills--;
-      Debug.Log(_currentLevelKills);
       if (_currentLevelKills == 0) { // New level unlocked
         _currentLevel++;
-        EventManager.instance.ActionLevelChange(_currentLevel);
-        EventManager.instance.ActionLevelVictory(true);
+        StartCoroutine(SetVictoryFrame());
       }
     }
 
     public void SetCurrentLevelKills(int amount) {
       _currentLevelKills = amount;
-      Debug.Log(_currentLevelKills);
     }
+
+    #endregion
+
+    #region COROUTINES
+
+    IEnumerator SetVictoryFrame()
+    {
+      // Delay for 2 seconds before setting victory frame
+      yield return new WaitForSeconds(2f);
+      EventManager.instance.ActionLevelChange(_currentLevel);
+      EventManager.instance.ActionLevelVictory(true);
+    }
+
+    #endregion
 }
