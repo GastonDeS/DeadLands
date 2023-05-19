@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
         // Set values
         _pauseFrame.SetActive(false);
         _victoryFrame.SetActive(false);
+        Cursor.visible = false;
 
         EventManager.instance.OnLevelVictory += OnLevelVictory;
     }
@@ -58,10 +59,12 @@ public class GameManager : MonoBehaviour
         _hud.SetActive(false);
         _isPaused = true;
         Time.timeScale = 0f;
+        Cursor.visible = true;
     }
 
     public void Resume()
     {
+        Cursor.visible = false;
         _pauseFrame.SetActive(false);
         _hud.SetActive(true);
         _isPaused = false;
@@ -88,9 +91,10 @@ public class GameManager : MonoBehaviour
         EventManager.instance.ActionDistributeEnemies();
     }
 
-        private void OnLevelVictory(bool _isVictory) 
+    private void OnLevelVictory(bool _isVictory) 
     {
         if (_isVictory) {
+            Cursor.visible = true;
             Time.timeScale = 0f;
             _victoryFrame.SetActive(true);
         } else {
