@@ -11,36 +11,42 @@ public enum Weapons
 [RequireComponent(typeof(AudioSource))]
 public class Character : LifeController, IMovable
 {
-    [SerializeField] private List<Gun> _availableWeapons;
-    [SerializeField] private Gun _currentWeapon;
-
-    public NavMeshAgent Agent => _agent;
-    [SerializeField] private NavMeshAgent _agent;
+    #region IMOVABLE PROPERTIES
 
     public float MovementSpeed => _movementSpeed;
     [SerializeField] private float _movementSpeed = 1f;
 
+    #endregion
+
+    public NavMeshAgent Agent => _agent;
+    [SerializeField] private NavMeshAgent _agent;
+
     public float RotationSpeed => _rotateSpeed;
     [SerializeField] private float _rotateSpeed = 0.2f;
 
-    private float accMouseX = 0;                     // reference for mouse look smoothing
-    private float mouseSnappiness = 20f;              // default was 10f; larger values of this cause less filtering, more responsiveness
+    [SerializeField] private List<Gun> _availableWeapons;
+    [SerializeField] private Gun _currentWeapon;
+    [SerializeField] private AudioClip _leftStep;
 
+    private bool        _isLeftStep = false;
+    private float       _accMouseX = 0;          // reference for mouse look smoothing
     private AudioSource _audioSource;
-    [SerializeField] private AudioClip leftStep;
-    private bool isLeftStep = false;
+    private static int  _currentCoins;
 
-    private static int _currentCoins;
+    public float mouseSnappiness = 20f;              // default was 10f; larger values of this cause less filtering, more responsiveness
+
+    #region UNITY EVENTS
 
     public new void Start()
     {
         _currentCoins = 0;
         _audioSource  = GetComponent<AudioSource>();
+
         EquipWeapon(Weapons.Pistol);
 
         // Subscribe events
         EventManager.instance.OnNewKill += OnNewKill;
-        EventManager.instance.OnSpend += OnSpend;
+        EventManager.instance.OnSpend   += OnSpend;
 
         base.Start();
     }
@@ -58,8 +64,12 @@ public class Character : LifeController, IMovable
         ProcessLook();
 
         if (Input.GetKey(KeyCode.Return)) _currentWeapon.Shoot();
-        if (Input.GetKeyDown(KeyCode.R)) _currentWeapon.Reload();
+        if (Input.GetKeyDown(KeyCode.R))  _currentWeapon.Reload();
     }
+
+    #endregion
+
+    #region LIFE CONTROLLER OVERRIDES
 
     public override void Die() 
     {
@@ -67,12 +77,14 @@ public class Character : LifeController, IMovable
         Destroy(this.gameObject);
     }
 
+    #endregion
+
     void ProcessLook()
     {
         float inputLookX = Input.GetAxis( "Mouse X" );
-        accMouseX = Mathf.Lerp( accMouseX, inputLookX, mouseSnappiness * Time.deltaTime );
+        _accMouseX = Mathf.Lerp( _accMouseX, inputLookX, mouseSnappiness * Time.deltaTime );
  
-        float mouseX = accMouseX * _rotateSpeed * 100f * Time.deltaTime;
+        float mouseX = _accMouseX * _rotateSpeed * 100f * Time.deltaTime;
        
         // Rotate player Y
         transform.Rotate( Vector3.up * mouseX );
@@ -91,30 +103,6 @@ public class Character : LifeController, IMovable
         _currentWeapon.SetAmmo();
     }
 
-    public void Move(Vector3 direction)
-    {
-        StartCoroutine(MoveSfxCoroutine());
-        if (_agent.CalculatePath(transform.position + direction * MovementSpeed * Time.deltaTime, new UnityEngine.AI.NavMeshPath()))
-        {
-            transform.Translate(direction * MovementSpeed * Time.deltaTime);
-        }
-    }
-
-    IEnumerator MoveSfxCoroutine()
-    {
-        if (!_audioSource.isPlaying)
-        {
-            if (isLeftStep) {
-                _audioSource.Play();
-                isLeftStep = false;
-            } else {
-                _audioSource.PlayOneShot(leftStep);
-                isLeftStep = true;
-            }
-            yield return new WaitForSeconds(0.7f);
-        }
-    }
-
     public void OnNewKill() {
         MainManager.instance.NewKill();
         if (MainManager.instance.TotalKills() % 5 == 0) {
@@ -130,4 +118,37 @@ public class Character : LifeController, IMovable
             EventManager.instance.ActionCoinsChange(_currentCoins);
         }
     }
+
+    #region IMOVABLE METHODS
+
+
+    public void Move(Vector3 direction)
+    {
+        StartCoroutine(MoveSfxCoroutine());
+        if (_agent.CalculatePath(transform.position + direction * MovementSpeed * Time.deltaTime, new UnityEngine.AI.NavMeshPath()))
+        {
+            transform.Translate(direction * MovementSpeed * Time.deltaTime);
+        }
+    }
+
+    #endregion
+
+    #region COROUTINES
+
+    IEnumerator MoveSfxCoroutine()
+    {
+        if (!_audioSource.isPlaying)
+        {
+            if (_isLeftStep) {
+                _audioSource.Play();
+                _isLeftStep = false;
+            } else {
+                _audioSource.PlayOneShot(_leftStep);
+                _isLeftStep = true;
+            }
+            yield return new WaitForSeconds(0.7f);
+        }
+    }
+
+    #endregion
 }

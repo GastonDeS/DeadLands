@@ -4,20 +4,19 @@ using UnityEngine;
 
 public class LifeController : MonoBehaviour, IDamageable
 {
+    #region IDAMAGEABLE PROPERTIES
+
     public int MaxLife => _maxLife;
     [SerializeField] private int _maxLife = 100;
 
     public int CurrentLife => _currentLife;
     [SerializeField] private int _currentLife = 0;
 
+    #endregion
+
     [SerializeField] private bool _isMainCharacter = false;
 
-    public bool IsAlive() => _currentLife > 0;
-
-    public virtual void Die()
-    {
-        // Must be implemented by child classes
-    }
+    #region UNITY EVENTS
 
     public virtual void Start()
     {
@@ -28,6 +27,10 @@ public class LifeController : MonoBehaviour, IDamageable
         EventManager.instance.OnRecoverLife += OnRecoverLife;
     }
 
+    #endregion
+
+    #region IDAMAGEABLE METHODS
+
     public void TakeDamage(int damage)
     {
         _currentLife -= damage;
@@ -37,12 +40,7 @@ public class LifeController : MonoBehaviour, IDamageable
         if (!IsAlive()) Die();
     }
 
-    public void UpdateMaxLife(int newMaxLife) 
-    {
-        _maxLife = newMaxLife;
-        _currentLife = _maxLife;
-        if (_isMainCharacter) ActionUpdateUILife();
-    }
+    public bool IsAlive() => _currentLife > 0;
 
     public void RecoverLife(int amount)
     {
@@ -51,6 +49,24 @@ public class LifeController : MonoBehaviour, IDamageable
         } else {
             _currentLife += amount;
         }
+    }
+
+    #endregion
+
+    #region ABSTRACT METHODS
+
+    public virtual void Die()
+    {
+        // Must be implemented by child classes
+    }
+
+    #endregion
+    
+    public void UpdateMaxLife(int newMaxLife) 
+    {
+        _maxLife = newMaxLife;
+        _currentLife = _maxLife;
+        if (_isMainCharacter) ActionUpdateUILife();
     }
 
     public void OnRecoverLife() 
