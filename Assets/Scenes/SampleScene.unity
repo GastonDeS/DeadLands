@@ -26424,15 +26424,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 430888, guid: 218c2d11f4184954cbeedf79022606d9, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.17747803
+      value: 0.2060875
       objectReference: {fileID: 0}
     - target: {fileID: 430888, guid: 218c2d11f4184954cbeedf79022606d9, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.12790991
+      value: 0.148529
       objectReference: {fileID: 0}
     - target: {fileID: 430888, guid: 218c2d11f4184954cbeedf79022606d9, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.12790994
+      value: 0.14852904
       objectReference: {fileID: 0}
     - target: {fileID: 430888, guid: 218c2d11f4184954cbeedf79022606d9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -26440,7 +26440,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 430888, guid: 218c2d11f4184954cbeedf79022606d9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.376
+      value: 2.65
       objectReference: {fileID: 0}
     - target: {fileID: 430888, guid: 218c2d11f4184954cbeedf79022606d9, type: 3}
       propertyPath: m_LocalPosition.z
@@ -26476,7 +26476,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 430888, guid: 218c2d11f4184954cbeedf79022606d9, type: 3}
       propertyPath: m_ConstrainProportionsScale
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 218c2d11f4184954cbeedf79022606d9, type: 3}
