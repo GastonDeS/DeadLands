@@ -24,11 +24,10 @@ public class Spawner : MonoBehaviour
     public IEnumerator Spawn()
     {
         if (_enemyCount <= 0) yield break;
-        yield return new WaitForSeconds(_spawnRate);
         GameObject newEnemy = Instantiate(_prefab, transform.position, transform.rotation);
-        newEnemy.GetComponent<Enemy>().SetAgent2(_mainCharacter);
         newEnemy.GetComponent<Enemy>().BoostStats(_statsBoost);
         _enemyCount--;
+        yield return new WaitForSeconds(_spawnRate);
         StartCoroutine(Spawn());
     }
 }

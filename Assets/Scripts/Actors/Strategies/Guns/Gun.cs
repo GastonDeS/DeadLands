@@ -4,22 +4,14 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class Gun : MonoBehaviour, IGun
 {
-    [SerializeField]
-    private bool AddBulletSpread = true;
-    [SerializeField]
-    private Vector3 BulletSpreadVariance = new Vector3(0.02f, 0.02f, 0.02f);
-    [SerializeField]
-    private ParticleSystem ShootingSystem;
-    [SerializeField]
-    private Transform BulletSpawnPoint;
-    [SerializeField]
-    private ParticleSystem ImpactParticleSystem;
-    [SerializeField]
-    private TrailRenderer BulletTrail;
-    [SerializeField]
-    private LayerMask Mask;
-    [SerializeField]
-    private float BulletSpeed = 100;
+    [SerializeField] private bool AddBulletSpread = true;
+    [SerializeField] private Vector3 BulletSpreadVariance = new Vector3(0.02f, 0.02f, 0.02f);
+    [SerializeField] private ParticleSystem ShootingSystem;
+    [SerializeField] private Transform BulletSpawnPoint;
+    [SerializeField] private ParticleSystem ImpactParticleSystem;
+    [SerializeField] private TrailRenderer BulletTrail;
+    [SerializeField] private LayerMask Mask;
+    [SerializeField] private float BulletSpeed = 100;
 
     public int Damage => _damage;
     [SerializeField] private int _damage = 10;
@@ -33,6 +25,7 @@ public class Gun : MonoBehaviour, IGun
 
     [SerializeField] private Camera _camera;
     private float LastShootTime;
+
     public bool IsReloading => _isReloading;
     private bool _isReloading = false;
 

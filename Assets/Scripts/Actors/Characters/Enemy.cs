@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(AudioSource))]
 public class Enemy : LifeController
 {
     public float Damage => _damage;
@@ -12,26 +13,27 @@ public class Enemy : LifeController
     private bool hit = false;
     private bool isDead = false;
 
-    public NavMeshAgent agent;
-    public GameObject agent2;
+    [SerializeField] private NavMeshAgent agent;
+    private GameObject _mainCharacter;
 
     private Animator animator;
     private AudioSource _audioSource;
-    [SerializeField] AudioClip _dyingSound;
-    [SerializeField] AudioClip _hitSound;
+    [SerializeField] private AudioClip _dyingSound;
+    [SerializeField] private AudioClip _hitSound;
 
     public new void Start()
     {
         _audioSource = GetComponent<AudioSource>();
         animator = GetComponentInChildren<Animator>();
+        _mainCharacter = GameObject.FindWithTag("MainCharacter");
         base.Start();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (agent2 == null || isDead) return;
-        agent.SetDestination(agent2.transform.position);
+        if (_mainCharacter == null || isDead) return;
+        agent.SetDestination(_mainCharacter.transform.position);
         if (_currentAttackCooldown >= 0)
         {
             _currentAttackCooldown -= Time.deltaTime;
@@ -41,11 +43,6 @@ public class Enemy : LifeController
     public void BoostStats(float statsBoost) {
         _damage = (int) (_damage * statsBoost);
         UpdateMaxLife((int) (MaxLife * statsBoost));
-    }
-
-    public void SetAgent2(GameObject agent2)
-    {
-        this.agent2 = agent2;
     }
 
     public void OnCollisionEnter(Collision collision)

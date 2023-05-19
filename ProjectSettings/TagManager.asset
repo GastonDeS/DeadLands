@@ -4,7 +4,7 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - BackgroundSound
+  - MainCharacter
   layers:
   - Default
   - TransparentFX

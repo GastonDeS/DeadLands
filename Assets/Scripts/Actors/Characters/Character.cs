@@ -24,7 +24,7 @@ public class Character : LifeController, IMovable
     [SerializeField] private float _rotateSpeed = 0.2f;
 
     private float accMouseX = 0;                     // reference for mouse look smoothing
-    public float mouseSnappiness = 20f;              // default was 10f; larger values of this cause less filtering, more responsiveness
+    private float mouseSnappiness = 20f;              // default was 10f; larger values of this cause less filtering, more responsiveness
 
     private AudioSource _audioSource;
     [SerializeField] private AudioClip leftStep;
