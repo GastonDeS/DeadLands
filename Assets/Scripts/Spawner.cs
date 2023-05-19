@@ -7,9 +7,6 @@ public class Spawner : MonoBehaviour
     GameObject Prefab => _prefab;
     [SerializeField] private GameObject _prefab;
 
-    GameObject MainCharacter => _mainCharacter;
-    [SerializeField] private GameObject _mainCharacter;
-
     private float _spawnRate = 1f;
     private float _statsBoost = 1f;
 

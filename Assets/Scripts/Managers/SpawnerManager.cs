@@ -42,8 +42,7 @@ public class SpawnerManager : MonoBehaviour
     {
         int[] enemyOnSpawners = new int[_spawners.Length];
         for (int i = 0; i < _levelEnemiesAmount; i++) {
-            int randomSpawnerIndex = UnityEngine.Random.Range(0, _spawners.Length);
-            enemyOnSpawners[randomSpawnerIndex]++;
+            enemyOnSpawners[i%enemyOnSpawners.Length]++;
         }
         for (int i = 0; i < _spawners.Length; i++) {
             _spawners[i].SetLevelStats(enemyOnSpawners[i], _levelEnemiesStatsBoostPercent);
