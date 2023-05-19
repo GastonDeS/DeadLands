@@ -33,7 +33,7 @@ public class Character : LifeController, IMovable
     private AudioSource _audioSource;
     private static int  _currentCoins;
 
-    public float mouseSnappiness = 20f;              // default was 10f; larger values of this cause less filtering, more responsiveness
+    private float mouseSnappiness = 20f;              // default was 10f; larger values of this cause less filtering, more responsiveness
 
     #region UNITY EVENTS
 
@@ -63,7 +63,7 @@ public class Character : LifeController, IMovable
 
         ProcessLook();
 
-        if (Input.GetKey(KeyCode.Return)) _currentWeapon.Shoot();
+        if (Input.GetButton("Fire1")) _currentWeapon.Shoot();
         if (Input.GetKeyDown(KeyCode.R))  _currentWeapon.Reload();
     }
 
