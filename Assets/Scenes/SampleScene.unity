@@ -16382,7 +16382,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 94b2fc1c2d2e54116bbb1978270d2a2f, type: 3}
   _weapon: {fileID: 7565882}
   _ammo: {fileID: 2118028198}
-  _level: {fileID: 0}
+  _level: {fileID: 1735117761}
 --- !u!4 &1458772730
 Transform:
   m_ObjectHideFlags: 0
