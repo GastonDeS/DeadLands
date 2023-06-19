@@ -9,38 +9,39 @@ public enum Weapons
 }
 
 [RequireComponent(typeof(AudioSource))]
-public class Character : LifeController, IMovable
+public class Character : LifeController
 {
-    #region IMOVABLE PROPERTIES
-
-    public float MovementSpeed => _movementSpeed;
-    [SerializeField] private float _movementSpeed = 1f;
-
-    #endregion
-
-    public NavMeshAgent Agent => _agent;
-    [SerializeField] private NavMeshAgent _agent;
+    private MovementController _movementController;
 
     public float RotationSpeed => _rotateSpeed;
     [SerializeField] private float _rotateSpeed = 0.2f;
 
     [SerializeField] private List<Gun> _availableWeapons;
     [SerializeField] private Gun _currentWeapon;
-    [SerializeField] private AudioClip _leftStep;
 
-    private bool        _isLeftStep = false;
     private float       _accMouseX = 0;          // reference for mouse look smoothing
-    private AudioSource _audioSource;
     private static int  _currentCoins;
 
     private float mouseSnappiness = 20f;              // default was 10f; larger values of this cause less filtering, more responsiveness
+
+    #region COMMANDS
+
+    private CmdMovement _cmdMoveForward;
+    private CmdMovement _cmdMoveBackward;
+    private CmdMovement _cmdMoveLeft;
+    private CmdMovement _cmdMoveRight;
+
+    private CmdShoot    _cmdShoot;
+    private CmdReload   _cmdReload;
+
+    #endregion
 
     #region UNITY EVENTS
 
     public new void Start()
     {
-        _currentCoins = 0;
-        _audioSource  = GetComponent<AudioSource>();
+        _movementController = GetComponent<MovementController>();
+        _currentCoins       = 0;
 
         EquipWeapon(Weapons.Pistol);
 
@@ -48,23 +49,39 @@ public class Character : LifeController, IMovable
         EventManager.instance.OnNewKill += OnNewKill;
         EventManager.instance.OnSpend   += OnSpend;
 
+        _cmdMoveForward  = new CmdMovement(_movementController, Vector3.forward);
+        _cmdMoveBackward = new CmdMovement(_movementController, -Vector3.forward);
+        _cmdMoveLeft     = new CmdMovement(_movementController, -Vector3.right);
+        _cmdMoveRight    = new CmdMovement(_movementController, Vector3.right);
+
+        _cmdShoot        = new CmdShoot(_currentWeapon);
+        _cmdReload       = new CmdReload(_currentWeapon);
+
         base.Start();
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1)) EquipWeapon(Weapons.Pistol);
-        if (Input.GetKeyDown(KeyCode.Alpha2)) EquipWeapon(Weapons.AssaultRifle);
+        if (Input.GetKeyDown(KeyCode.Alpha1)) 
+        {
+            EquipWeapon(Weapons.Pistol);
+            _cmdShoot.SetGun(_currentWeapon);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2)) 
+        {
+            EquipWeapon(Weapons.AssaultRifle);
+            _cmdShoot.SetGun(_currentWeapon);
+        }
 
-        if (Input.GetKey(KeyCode.W)) Move(Vector3.forward);
-        if (Input.GetKey(KeyCode.S)) Move(-Vector3.forward);
-        if (Input.GetKey(KeyCode.A)) Move(-Vector3.right);
-        if (Input.GetKey(KeyCode.D)) Move(Vector3.right);
+        if (Input.GetKey(KeyCode.W)) _cmdMoveForward.Execute();
+        if (Input.GetKey(KeyCode.S)) _cmdMoveBackward.Execute();
+        if (Input.GetKey(KeyCode.A)) _cmdMoveLeft.Execute();
+        if (Input.GetKey(KeyCode.D)) _cmdMoveRight.Execute();
 
         ProcessLook();
 
-        if (Input.GetButton("Fire1")) _currentWeapon.Shoot();
-        if (Input.GetKeyDown(KeyCode.R))  _currentWeapon.Reload();
+        if (Input.GetButton("Fire1"))     _cmdShoot.Execute();
+        if (Input.GetKeyDown(KeyCode.R))  _cmdReload.Execute();
     }
 
     #endregion
@@ -118,37 +135,4 @@ public class Character : LifeController, IMovable
             EventManager.instance.ActionCoinsChange(_currentCoins);
         }
     }
-
-    #region IMOVABLE METHODS
-
-
-    public void Move(Vector3 direction)
-    {
-        StartCoroutine(MoveSfxCoroutine());
-        if (_agent.CalculatePath(transform.position + direction * MovementSpeed * Time.deltaTime, new UnityEngine.AI.NavMeshPath()))
-        {
-            transform.Translate(direction * MovementSpeed * Time.deltaTime);
-        }
-    }
-
-    #endregion
-
-    #region COROUTINES
-
-    IEnumerator MoveSfxCoroutine()
-    {
-        if (!_audioSource.isPlaying)
-        {
-            if (_isLeftStep) {
-                _audioSource.Play();
-                _isLeftStep = false;
-            } else {
-                _audioSource.PlayOneShot(_leftStep);
-                _isLeftStep = true;
-            }
-            yield return new WaitForSeconds(0.7f);
-        }
-    }
-
-    #endregion
 }

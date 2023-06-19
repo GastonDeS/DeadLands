@@ -485,6 +485,7 @@ GameObject:
   - component: {fileID: 6157784753201941946}
   - component: {fileID: 222089445}
   - component: {fileID: 222089446}
+  - component: {fileID: 4856796572019459414}
   - component: {fileID: 4720429994711387294}
   m_Layer: 3
   m_Name: Character
@@ -528,15 +529,11 @@ MonoBehaviour:
   _maxLife: 100
   _currentLife: 100
   _isMainCharacter: 1
+  _rotateSpeed: 80
   _availableWeapons:
   - {fileID: 3527624492010075126}
   - {fileID: 6692633205291214739}
   _currentWeapon: {fileID: 3527624492010075126}
-  _agent: {fileID: 6157784753201941946}
-  _movementSpeed: 1.5
-  _rotateSpeed: 80
-  mouseSnappiness: 20
-  leftStep: {fileID: 8300000, guid: b150c79fe9e7446ffa42d8f10a990893, type: 3}
 --- !u!195 &6157784753201941946
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -589,6 +586,21 @@ CapsuleCollider:
   m_Height: 3.314516
   m_Direction: 1
   m_Center: {x: 0, y: 0.3136752, z: 0.5795305}
+--- !u!114 &4856796572019459414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8634824564980085290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ed5ca74c1ea146ac881c063e76f1d88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _agent: {fileID: 6157784753201941946}
+  _leftStep: {fileID: 8300000, guid: 811cec98f8dde45b6ae0b0bb8feb04f5, type: 3}
+  _movementSpeed: 1
 --- !u!82 &4720429994711387294
 AudioSource:
   m_ObjectHideFlags: 0
@@ -733,9 +745,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rotationSpeed: 80
-  mouseSnappiness: 20
-  clampLookY: 90
-  xRotation: 0
 --- !u!1001 &1649245914801833786
 PrefabInstance:
   m_ObjectHideFlags: 0
