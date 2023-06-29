@@ -66,11 +66,13 @@ public class Character : LifeController
         {
             EquipWeapon(Weapons.Pistol);
             _cmdShoot.SetGun(_currentWeapon);
+            _cmdReload.SetGun(_currentWeapon);
         }
         if (Input.GetKeyDown(KeyCode.Alpha2)) 
         {
             EquipWeapon(Weapons.AssaultRifle);
             _cmdShoot.SetGun(_currentWeapon);
+            _cmdReload.SetGun(_currentWeapon);
         }
 
         if (Input.GetKey(KeyCode.W)) _cmdMoveForward.Execute();
