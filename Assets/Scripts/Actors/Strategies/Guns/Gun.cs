@@ -4,6 +4,9 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class Gun : MonoBehaviour, IGun
 {
+    public GunStats GunStats => _gunStats;
+    [SerializeField] private GunStats _gunStats;
+
     [SerializeField] private bool AddBulletSpread = true;
     [SerializeField] private Vector3 BulletSpreadVariance = new Vector3(0.02f, 0.02f, 0.02f);
     [SerializeField] private ParticleSystem ShootingSystem;
@@ -13,15 +16,12 @@ public class Gun : MonoBehaviour, IGun
     [SerializeField] private LayerMask Mask;
     [SerializeField] private float BulletSpeed = 100;
 
-    public int Damage => _damage;
-    [SerializeField] private int _damage = 10;
-    public int MagSize => _magSize;
-    [SerializeField] private int _magSize = 20;
+    public int Damage         => _gunStats.Damage;
+    public int MagSize        => _gunStats.MagSize;
+    public float ShotCooldown => _gunStats.ShotCooldown;
+
     public int CurrentBulletCount => _currentBulletCount;
     [SerializeField] private int _currentBulletCount;
-
-    public float ShotCooldown => _shootCooldown;
-    [SerializeField] private float _shootCooldown = .5f;
 
     [SerializeField] private Camera _camera;
     private float LastShootTime;
@@ -37,18 +37,18 @@ public class Gun : MonoBehaviour, IGun
     {
         _audioSource = GetComponent<AudioSource>();
         _animator = GetComponent<Animator>();
-        _currentBulletCount = _magSize;
+        _currentBulletCount = MagSize;
     }
 
     public void Reload()
     {
-        if (_isReloading || _currentBulletCount == _magSize) return;
+        if (_isReloading || _currentBulletCount == MagSize) return;
         StartCoroutine(ReloadCoroutine());
     }
 
     public void SetAmmo() 
     {
-        EventManager.instance?.ActionWeaponAmmoChange(_currentBulletCount, _magSize);
+        EventManager.instance?.ActionWeaponAmmoChange(_currentBulletCount, MagSize);
     }
 
     IEnumerator ReloadCoroutine()
@@ -56,9 +56,9 @@ public class Gun : MonoBehaviour, IGun
         _isReloading = true;
         _audioSource.PlayOneShot(_reloadSound);
         yield return new WaitForSeconds(1f);
-        _currentBulletCount = _magSize;
+        _currentBulletCount = MagSize;
         _isReloading = false;
-        EventManager.instance?.ActionWeaponAmmoChange(_currentBulletCount, _magSize);
+        EventManager.instance?.ActionWeaponAmmoChange(_currentBulletCount, MagSize);
     }
 
     public void Shoot()
@@ -69,7 +69,7 @@ public class Gun : MonoBehaviour, IGun
             // Use an object pool instead for these! To keep this tutorial focused, we'll skip implementing one.
             // For more details you can see: https://youtu.be/fsDE_mO4RZM or if using Unity 2021+: https://youtu.be/zyzqA_CPz2E
             _currentBulletCount--;
-            EventManager.instance?.ActionWeaponAmmoChange(_currentBulletCount, _magSize);
+            EventManager.instance?.ActionWeaponAmmoChange(_currentBulletCount, MagSize);
 
             ShootingSystem.Play();
             Vector3 direction = GetDirection();
