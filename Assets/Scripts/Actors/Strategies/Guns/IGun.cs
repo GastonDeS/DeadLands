@@ -7,7 +7,7 @@ public interface IGun
     // Properties
 
     int Damage { get; }
-    int MagZise { get; }
+    int MagSize { get; }
     int CurrentBulletCount { get; }
     float ShotCooldown { get; }
 

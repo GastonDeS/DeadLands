@@ -15,7 +15,7 @@ public class Gun : MonoBehaviour, IGun
 
     public int Damage => _damage;
     [SerializeField] private int _damage = 10;
-    public int MagZise => _magSize;
+    public int MagSize => _magSize;
     [SerializeField] private int _magSize = 20;
     public int CurrentBulletCount => _currentBulletCount;
     [SerializeField] private int _currentBulletCount;
