@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: MachineGunStats
   m_EditorClassIdentifier: 
   _stats:
-    Damage: 0
-    MagSize: 0
-    ShotCooldown: 0
+    Damage: 50
+    MagSize: 30
+    ShotCooldown: 0.1

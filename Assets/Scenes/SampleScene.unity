@@ -8933,10 +8933,18 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 3527624492010075126, guid: 7e4f5a19d47254082a9454305fb31ea6, type: 3}
+      propertyPath: _gunStats
+      value: 
+      objectReference: {fileID: 11400000, guid: 002191d60a44445b19964e5f9d61661e, type: 2}
     - target: {fileID: 3855559227674518670, guid: 7e4f5a19d47254082a9454305fb31ea6, type: 3}
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 4856796572019459414, guid: 7e4f5a19d47254082a9454305fb31ea6, type: 3}
+      propertyPath: _actorStats
+      value: 
+      objectReference: {fileID: 11400000, guid: 5dfb79e3f9d064316930cba0e77d685b, type: 2}
     - target: {fileID: 6269875511570625835, guid: 7e4f5a19d47254082a9454305fb31ea6, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -9001,6 +9009,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 6692633205291214739, guid: 7e4f5a19d47254082a9454305fb31ea6, type: 3}
+      propertyPath: _gunStats
+      value: 
+      objectReference: {fileID: 11400000, guid: a3c065e990dfa4166bce8b7d22179dbd, type: 2}
     - target: {fileID: 7860232351776735912, guid: 7e4f5a19d47254082a9454305fb31ea6, type: 3}
       propertyPath: m_Layer
       value: 3
