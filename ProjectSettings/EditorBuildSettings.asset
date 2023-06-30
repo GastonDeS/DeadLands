@@ -10,16 +10,10 @@ EditorBuildSettings:
     guid: 2e5867204bc494a3ab72de62273b0871
   - enabled: 1
     path: Assets/Scenes/LoadGameAsync.unity
-    guid: 324d44685e20141c480b919f1f8a9d58
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
+    guid: d2b93c9e68c5b466cb2296cbc1890b77
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/Defeat.unity
     guid: 48553f38ce3914f7cb7da03abb7931e9
