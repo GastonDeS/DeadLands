@@ -83,6 +83,8 @@ public class Gun : MonoBehaviour, IGun
                 if (isDamageable && gameObject.GetComponentInParent<IDamageable>() != damageable)
                 {
                     damageable.TakeDamage(Damage);
+                } else if (hit.collider.GetComponentInParent<IHitable>() != null) {
+                    hit.collider.GetComponentInParent<IHitable>().Apply(direction);
                 }
 
                 StartCoroutine(SpawnTrail(trail, hit.point, hit.normal, true, isDamageable));
