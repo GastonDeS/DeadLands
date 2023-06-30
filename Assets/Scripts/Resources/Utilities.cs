@@ -22,6 +22,9 @@ namespace Utilities
         [Description("MainMenu")]
         MainMenu,
 
+        [Description("LoadGameAsync")]
+        LoadGameAsync,
+
         [Description("SampleScene")]
         SampleScene,
 

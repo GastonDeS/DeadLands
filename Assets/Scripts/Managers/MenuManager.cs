@@ -6,7 +6,7 @@ using Utilities;
 
 public class MenuManager : MonoBehaviour
 {
-    public void ActionPlay() => SceneManager.LoadScene(UnityScenes.SampleScene.DisplayName());
+    public void ActionPlay() => SceneManager.LoadScene(UnityScenes.LoadGameAsync.DisplayName());
 
     public void ActionExit() => Application.Quit();
 }
