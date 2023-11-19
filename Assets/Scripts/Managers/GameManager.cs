@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     private GameObject _hud;
     private GameObject _pauseFrame;
     private GameObject _victoryFrame;
+    private GameObject _marketFrame;
 
     #region UNITY EVENTS
 
@@ -22,6 +23,7 @@ public class GameManager : MonoBehaviour
         _hud          = GameObject.Find(UnityObjects.Hud.DisplayName());
         _pauseFrame   = GameObject.Find(UnityObjects.PauseFrame.DisplayName());
         _victoryFrame = GameObject.Find(UnityObjects.VictoryFrame.DisplayName());
+        _marketFrame  = GameObject.Find(UnityObjects.MarketFrame.DisplayName());
     }
 
     private void Start()
@@ -29,6 +31,7 @@ public class GameManager : MonoBehaviour
         // Set values
         _pauseFrame.SetActive(false);
         _victoryFrame.SetActive(false);
+        _marketFrame.SetActive(false);
         Cursor.visible = false;
 
         EventManager.instance.OnLevelVictory += OnLevelVictory;
@@ -77,12 +80,6 @@ public class GameManager : MonoBehaviour
 
     #region VICTORY/DEFEAT
 
-    public void BuyLife()
-    {
-        EventManager.instance.ActionRecoverLife();
-        EventManager.instance.ActionSpend(_lifePrice);
-    }
-
     public void NextLevel()
     {
         Time.timeScale = 1f;
@@ -100,6 +97,29 @@ public class GameManager : MonoBehaviour
         } else {
             SceneManager.LoadScene(UnityScenes.Defeat.DisplayName());
             Destroy(gameObject);
+        }
+    }
+
+    #endregion
+
+    #region MARKET
+
+    public void ActionEnterMarket() {
+        _victoryFrame.SetActive(false);
+        _marketFrame.SetActive(true);
+    }
+
+    public void ActionLeaveMarket() {        
+        _victoryFrame.SetActive(true);
+        _marketFrame.SetActive(false);
+    }
+
+    public void BuyLife()
+    {
+        bool canBuy = false;
+        EventManager.instance.ActionSpend(_lifePrice, canBuy);
+        if (canBuy) {
+            EventManager.instance.ActionRecoverLife();
         }
     }
 

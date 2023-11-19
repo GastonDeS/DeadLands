@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public enum Weapons
 {
-    Pistol = 0, AssaultRifle = 1
+    Pistol = 0, AssaultRifle = 1, ShotGun = 2
 }
 
 [RequireComponent(typeof(AudioSource))]
@@ -136,12 +136,13 @@ public class Character : LifeController
         }
     }
 
-    public void OnSpend(int amount)
+    public void OnSpend(int amount, bool canBuy)
     {
         if (_currentCoins >= amount)
         {
             _currentCoins -= amount;
             EventManager.instance.ActionCoinsChange(_currentCoins);
+            canBuy = true;
         }
     }
 

@@ -64,10 +64,10 @@ public class EventManager : MonoBehaviour
         if (OnRecoverLife != null) OnRecoverLife();
     }
 
-    public event Action<int> OnSpend;
-    public void ActionSpend(int amount) 
+    public event Action<int, bool> OnSpend;
+    public void ActionSpend(int amount, bool canBuy) 
     {
-        if (OnSpend != null) OnSpend(amount);
+        if (OnSpend != null) OnSpend(amount, canBuy);
     }
 
     #endregion

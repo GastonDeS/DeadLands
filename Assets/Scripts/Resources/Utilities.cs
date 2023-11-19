@@ -14,7 +14,10 @@ namespace Utilities
         PauseFrame,
 
         [Description("VictoryFrame")]
-        VictoryFrame
+        VictoryFrame,
+
+        [Description("MarketFrame")]
+        MarketFrame
     }
 
     public enum UnityScenes
