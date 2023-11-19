@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Utilities;
 
 public class EventManager : MonoBehaviour
 {
@@ -28,28 +29,31 @@ public class EventManager : MonoBehaviour
     #region UI_ELEMENTS
 
     public event Action<float, float> OnCharacterLifeChange;
-    public void ActionCharacterLifeChange(float currentLife, float maxLife) {
+    public void ActionCharacterLifeChange(float currentLife, float maxLife)
+    {
         if (OnCharacterLifeChange != null) OnCharacterLifeChange(currentLife, maxLife);
     }
 
     public event Action<int> OnWeaponChange;
-    public void ActionWeaponChange(int index) {
-       if (OnWeaponChange != null) OnWeaponChange(index);
+    public void ActionWeaponChange(int index)
+    {
+        if (OnWeaponChange != null) OnWeaponChange(index);
     }
 
     public event Action<int, int> OnWeaponAmmoChange;
-    public void ActionWeaponAmmoChange(int currentAmmo, int maxAmmo) {
+    public void ActionWeaponAmmoChange(int currentAmmo, int maxAmmo)
+    {
         if (OnWeaponAmmoChange != null) OnWeaponAmmoChange(currentAmmo, maxAmmo);
     }
 
     public event Action<int> OnLevelChange;
-    public void ActionLevelChange(int level) 
+    public void ActionLevelChange(int level)
     {
         if (OnLevelChange != null) OnLevelChange(level);
     }
 
     public event Action<int> OnCoinsChange;
-    public void ActionCoinsChange(int currentCoins) 
+    public void ActionCoinsChange(int currentCoins)
     {
         if (OnCoinsChange != null) OnCoinsChange(currentCoins);
     }
@@ -59,15 +63,22 @@ public class EventManager : MonoBehaviour
     #region MARKET
 
     public event Action OnRecoverLife;
-    public void ActionRecoverLife() 
+    public void ActionRecoverLife()
     {
         if (OnRecoverLife != null) OnRecoverLife();
     }
 
-    public event Action<int, bool> OnSpend;
-    public void ActionSpend(int amount, bool canBuy) 
+    public event Func<int, bool> OnSpend;
+    public bool ActionSpend(int amount)
     {
-        if (OnSpend != null) OnSpend(amount, canBuy);
+        if (OnSpend != null) return OnSpend(amount);
+        return false;
+    }
+
+    public event Action<Weapons> OnAcquireWeapon;
+    public void ActionAcquireWeapon(Weapons weapon)
+    {
+        if (OnAcquireWeapon != null) OnAcquireWeapon(weapon);
     }
 
     #endregion
@@ -75,19 +86,19 @@ public class EventManager : MonoBehaviour
     #region ENEMY KILLS
 
     public event Action OnNewKill;
-    public void ActionNewKill() 
+    public void ActionNewKill()
     {
         if (OnNewKill != null) OnNewKill();
     }
 
     public event Action OnBoostEnemies;
-    public void ActionBoostEnemies() 
+    public void ActionBoostEnemies()
     {
         if (OnBoostEnemies != null) OnBoostEnemies();
     }
 
     public event Action OnDistributeEnemies;
-    public void ActionDistributeEnemies() 
+    public void ActionDistributeEnemies()
     {
         if (OnDistributeEnemies != null) OnDistributeEnemies();
     }

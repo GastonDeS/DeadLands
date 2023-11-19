@@ -5,6 +5,11 @@ using System.Collections.Concurrent;
 
 namespace Utilities
 {
+    public enum Weapons
+    {
+        Pistol = 0, AssaultRifle = 1, ShotGun = 2
+    }
+    
     public enum UnityObjects
     {
         [Description("Hud")]
@@ -38,7 +43,7 @@ namespace Utilities
     public static class EnumExtensions
     {
         // Note that we never need to expire these cache items, so we just use ConcurrentDictionary rather than MemoryCache
-        private static readonly 
+        private static readonly
             ConcurrentDictionary<string, string> DisplayNameCache = new ConcurrentDictionary<string, string>();
 
         public static string DisplayName(this Enum value)

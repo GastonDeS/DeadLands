@@ -2,11 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-
-public enum Weapons
-{
-    Pistol = 0, AssaultRifle = 1, ShotGun = 2
-}
+using Utilities;
 
 [RequireComponent(typeof(AudioSource))]
 public class Character : LifeController
@@ -23,6 +19,9 @@ public class Character : LifeController
     private static int _currentCoins;
 
     private float mouseSnappiness = 20f;              // default was 10f; larger values of this cause less filtering, more responsiveness
+
+    private List<Weapons> _acquiredWeapons = new List<Weapons>();
+    private int _currentWeaponIdx = 0;
 
     #region COMMANDS
 
@@ -46,10 +45,12 @@ public class Character : LifeController
         _currentCoins = 0;
 
         EquipWeapon(Weapons.Pistol);
+        _acquiredWeapons.Add(Weapons.Pistol);
 
         // Subscribe events
-        EventManager.instance.OnNewKill += OnNewKill;
-        EventManager.instance.OnSpend += OnSpend;
+        EventManager.instance.OnNewKill       += OnNewKill;
+        EventManager.instance.OnSpend         += OnSpend;
+        EventManager.instance.OnAcquireWeapon += OnAcquireWeapon;
 
         _cmdMoveForward = new CmdMovement(_movementController, Vector3.forward);
         _cmdMoveBackward = new CmdMovement(_movementController, -Vector3.forward);
@@ -67,16 +68,14 @@ public class Character : LifeController
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            EquipWeapon(Weapons.Pistol);
-            _cmdShoot.SetGun(_currentWeapon);
-            _cmdReload.SetGun(_currentWeapon);
+            ChangeWeapon();
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            EquipWeapon(Weapons.AssaultRifle);
-            _cmdShoot.SetGun(_currentWeapon);
-            _cmdReload.SetGun(_currentWeapon);
-        }
+        // if (Input.GetKeyDown(KeyCode.Alpha2))
+        // {
+        //     EquipWeapon(Weapons.AssaultRifle);
+        //     _cmdShoot.SetGun(_currentWeapon);
+        //     _cmdReload.SetGun(_currentWeapon);
+        // }
 
         if (Input.GetKey(KeyCode.W)) _cmdMoveForward.Execute();
         if (Input.GetKey(KeyCode.S)) _cmdMoveBackward.Execute();
@@ -113,6 +112,24 @@ public class Character : LifeController
         transform.Rotate(Vector3.up * mouseX);
     }
 
+    private void ChangeWeapon() {
+        int size = _acquiredWeapons.Count;
+        if (_currentWeaponIdx == size - 1) {
+            _currentWeaponIdx = 0;
+        } else {
+            _currentWeaponIdx++;
+        }
+        Weapons newWeapon = _acquiredWeapons[_currentWeaponIdx];
+        EquipWeapon(newWeapon);
+        _cmdShoot.SetGun(_currentWeapon);
+        _cmdReload.SetGun(_currentWeapon);
+    }
+
+    private void OnAcquireWeapon(Weapons weapon)
+    {
+        _acquiredWeapons.Add(weapon);
+    }
+
     private void EquipWeapon(Weapons weapon)
     {
         if (_currentWeapon != null && _currentWeapon.IsReloading) return;
@@ -136,14 +153,15 @@ public class Character : LifeController
         }
     }
 
-    public void OnSpend(int amount, bool canBuy)
+    public bool OnSpend(int amount)
     {
         if (_currentCoins >= amount)
         {
             _currentCoins -= amount;
             EventManager.instance.ActionCoinsChange(_currentCoins);
-            canBuy = true;
+            return true;
         }
+        return false;
     }
 
     public void OnCollisionEnter(Collision collision)

@@ -10,7 +10,9 @@ using Utilities;
 public class GameManager : MonoBehaviour
 {
     private bool _isPaused = false;
-    private int _lifePrice = 10;
+    private int _lifePrice = 1;
+    private int _riflePrice = 2;
+    private int _shotGunPrice = 3;
     private GameObject _hud;
     private GameObject _pauseFrame;
     private GameObject _victoryFrame;
@@ -116,10 +118,27 @@ public class GameManager : MonoBehaviour
 
     public void BuyLife()
     {
-        bool canBuy = false;
-        EventManager.instance.ActionSpend(_lifePrice, canBuy);
+        bool canBuy = EventManager.instance.ActionSpend(_lifePrice);
         if (canBuy) {
             EventManager.instance.ActionRecoverLife();
+        }
+    }
+
+    public void AcquireRifle()
+    {
+        AcquireGun(_riflePrice, Weapons.AssaultRifle);
+    }
+
+    public void AcquireShotGun()
+    {
+        AcquireGun(_shotGunPrice, Weapons.ShotGun);
+    }
+
+    private void AcquireGun(int price, Weapons weapon) 
+    {
+        bool canBuy = EventManager.instance.ActionSpend(price);
+        if (canBuy) {
+            EventManager.instance.ActionAcquireWeapon(weapon);
         }
     }
 
