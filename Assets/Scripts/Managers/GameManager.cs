@@ -10,9 +10,9 @@ using Utilities;
 public class GameManager : MonoBehaviour
 {
     private bool _isPaused = false;
-    private int _lifePrice = 1;
-    private int _riflePrice = 2;
-    private int _shotGunPrice = 3;
+    private int _lifePrice = 5;
+    private int _riflePrice = 10;
+    private int _shotGunPrice = 15;
     private GameObject _hud;
     private GameObject _pauseFrame;
     private GameObject _victoryFrame;
