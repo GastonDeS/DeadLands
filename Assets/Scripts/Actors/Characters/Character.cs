@@ -44,8 +44,8 @@ public class Character : LifeController
         _movementController = GetComponent<MovementController>();
         _currentCoins = 0;
 
-        EquipWeapon(Weapons.Pistol);
-        _acquiredWeapons.Add(Weapons.Pistol);
+        EquipWeapon(Weapons.ShotGun);
+        _acquiredWeapons.Add(Weapons.ShotGun);
 
         // Subscribe events
         EventManager.instance.OnNewKill       += OnNewKill;
