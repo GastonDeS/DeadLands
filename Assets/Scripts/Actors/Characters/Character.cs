@@ -42,10 +42,10 @@ public class Character : LifeController
     public new void Start()
     {
         _movementController = GetComponent<MovementController>();
-        _currentCoins = 0;
+        _currentCoins = 30;
 
-        EquipWeapon(Weapons.ShotGun);
-        _acquiredWeapons.Add(Weapons.ShotGun);
+        EquipWeapon(Weapons.Pistol);
+        _acquiredWeapons.Add(Weapons.Pistol);
 
         // Subscribe events
         EventManager.instance.OnNewKill       += OnNewKill;
@@ -139,7 +139,7 @@ public class Character : LifeController
         }
         _currentWeapon = _availableWeapons[(int)weapon];
         _currentWeapon.gameObject.SetActive(true);
-        EventManager.instance?.ActionWeaponChange((int)weapon);
+        //EventManager.instance?.ActionWeaponChange((int)weapon);
         _currentWeapon.SetAmmo();
     }
 

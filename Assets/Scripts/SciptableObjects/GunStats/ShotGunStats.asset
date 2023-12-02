@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: ShotGunStats
   m_EditorClassIdentifier: 
   _stats:
-    Damage: 0
-    MagSize: 0
-    ShotCooldown: 0
+    Damage: 90
+    MagSize: 8
+    ShotCooldown: 0.5
