@@ -19,6 +19,8 @@ public class Gun : MonoBehaviour, IGun
     public int Damage         => _gunStats.Damage;
     public int MagSize        => _gunStats.MagSize;
     public float ShotCooldown => _gunStats.ShotCooldown;
+    public int NumberOfPellets => _gunStats.NumberOfPellets;
+    public float PelletSpread => _gunStats.PelletSpread; 
 
     public int CurrentBulletCount => _currentBulletCount;
     [SerializeField] private int _currentBulletCount;
@@ -70,8 +72,12 @@ public class Gun : MonoBehaviour, IGun
             // For more details you can see: https://youtu.be/fsDE_mO4RZM or if using Unity 2021+: https://youtu.be/zyzqA_CPz2E
             _currentBulletCount--;
             EventManager.instance?.ActionWeaponAmmoChange(_currentBulletCount, MagSize);
-
+            
             ShootingSystem.Play();
+            SpreadPellets();
+            LastShootTime = Time.time;
+            
+            /*
             Vector3 direction = GetDirection();
             _audioSource?.Play();
             if (Physics.Raycast(_camera.transform.position, direction, out RaycastHit hit, float.MaxValue))
@@ -99,6 +105,52 @@ public class Gun : MonoBehaviour, IGun
                 StartCoroutine(SpawnTrail(trail, BulletSpawnPoint.position + GetDirection() * 100, Vector3.zero, false, false));
 
                 LastShootTime = Time.time;
+            }
+            */
+        }
+    }
+    
+    private void SpreadPellets()
+    {
+        for(int i = 0; i < NumberOfPellets; i++)
+        {
+            Vector3 direction = GetDirection();
+
+            direction += new Vector3(
+                Random.Range(-PelletSpread, PelletSpread),
+                Random.Range(-PelletSpread, PelletSpread),
+                Random.Range(-PelletSpread, PelletSpread)
+            );
+
+            direction.Normalize();
+
+            _audioSource?.Play();
+
+            if (Physics.Raycast(_camera.transform.position, direction, out RaycastHit hit, float.MaxValue))
+            {
+                TrailRenderer trail = Instantiate(BulletTrail, BulletSpawnPoint.position, Quaternion.identity);
+
+                IDamageable damageable = hit.collider.GetComponentInParent<IDamageable>();
+                bool isDamageable = damageable != null;
+                if (isDamageable && gameObject.GetComponentInParent<IDamageable>() != damageable)
+                {
+                    damageable.TakeDamage(Damage);
+                } else if (hit.collider.GetComponentInParent<IHitable>() != null) {
+                    hit.collider.GetComponentInParent<IHitable>().Apply(direction);
+                }
+
+                StartCoroutine(SpawnTrail(trail, hit.point, hit.normal, true, isDamageable));
+
+                //LastShootTime = Time.time;
+            }
+            // this has been updated to fix a commonly reported problem that you cannot fire if you would not hit anything
+            else
+            {
+                TrailRenderer trail = Instantiate(BulletTrail, BulletSpawnPoint.position, Quaternion.identity);
+
+                StartCoroutine(SpawnTrail(trail, BulletSpawnPoint.position + GetDirection() * 100, Vector3.zero, false, false));
+
+                //LastShootTime = Time.time;
             }
         }
     }

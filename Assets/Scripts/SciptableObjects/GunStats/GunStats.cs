@@ -10,6 +10,9 @@ public class GunStats : ScriptableObject
     public int Damage         => _stats.Damage;
     public int MagSize        => _stats.MagSize;
     public float ShotCooldown => _stats.ShotCooldown;
+    public int NumberOfPellets => _stats.NumberOfPellets;
+    public float PelletSpread => _stats.PelletSpread;
+
 }
 
 [System.Serializable]
@@ -18,4 +21,7 @@ public struct GunStatValues
     public int Damage;
     public int MagSize;
     public float ShotCooldown;
+    public int NumberOfPellets;
+    public float PelletSpread; 
+    
 }

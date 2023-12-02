@@ -15,4 +15,6 @@ MonoBehaviour:
   _stats:
     Damage: 90
     MagSize: 8
-    ShotCooldown: 0.5
+    ShotCooldown: 1
+    NumberOfPellets: 10
+    PelletSpread: 0.1

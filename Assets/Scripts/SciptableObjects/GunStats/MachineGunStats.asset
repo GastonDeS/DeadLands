@@ -16,3 +16,5 @@ MonoBehaviour:
     Damage: 50
     MagSize: 30
     ShotCooldown: 0.1
+    NumberOfPellets: 1
+    PelletSpread: 0
