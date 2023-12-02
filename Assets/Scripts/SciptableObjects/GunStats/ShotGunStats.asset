@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ShotGunStats
   m_EditorClassIdentifier: 
   _stats:
-    Damage: 90
+    Damage: 30
     MagSize: 8
     ShotCooldown: 1
     NumberOfPellets: 10
