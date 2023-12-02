@@ -32841,6 +32841,7 @@ MonoBehaviour:
   _weaponSprites:
   - {fileID: 21300000, guid: 9f2b4b2004eec458c8fd4a4728860e96, type: 3}
   - {fileID: 21300000, guid: 94b2fc1c2d2e54116bbb1978270d2a2f, type: 3}
+  - {fileID: 21300000, guid: b3edf4d4880064b6aa0041d248b0e3c8, type: 3}
   _weapon: {fileID: 7565882}
   _ammo: {fileID: 2118028198}
   _level: {fileID: 1735117761}
