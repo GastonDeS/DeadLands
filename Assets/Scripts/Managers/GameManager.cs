@@ -139,6 +139,7 @@ public class GameManager : MonoBehaviour
         bool canBuy = EventManager.instance.ActionSpend(price);
         if (canBuy) {
             EventManager.instance.ActionAcquireWeapon(weapon);
+            EventManager.instance.ActionMarketChange(weapon);
         }
     }
 

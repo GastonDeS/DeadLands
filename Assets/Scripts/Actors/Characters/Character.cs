@@ -42,7 +42,7 @@ public class Character : LifeController
     public new void Start()
     {
         _movementController = GetComponent<MovementController>();
-        _currentCoins = 30;
+        _currentCoins = 0;
 
         EquipWeapon(Weapons.Pistol);
         _acquiredWeapons.Add(Weapons.Pistol);
@@ -70,12 +70,6 @@ public class Character : LifeController
         {
             ChangeWeapon();
         }
-        // if (Input.GetKeyDown(KeyCode.Alpha2))
-        // {
-        //     EquipWeapon(Weapons.AssaultRifle);
-        //     _cmdShoot.SetGun(_currentWeapon);
-        //     _cmdReload.SetGun(_currentWeapon);
-        // }
 
         if (Input.GetKey(KeyCode.W)) _cmdMoveForward.Execute();
         if (Input.GetKey(KeyCode.S)) _cmdMoveBackward.Execute();
@@ -139,7 +133,7 @@ public class Character : LifeController
         }
         _currentWeapon = _availableWeapons[(int)weapon];
         _currentWeapon.gameObject.SetActive(true);
-        //EventManager.instance?.ActionWeaponChange((int)weapon);
+        EventManager.instance?.ActionWeaponChange((int)weapon);
         _currentWeapon.SetAmmo();
     }
 

@@ -81,6 +81,12 @@ public class EventManager : MonoBehaviour
         if (OnAcquireWeapon != null) OnAcquireWeapon(weapon);
     }
 
+    public event Action<Weapons> OnMarketChange;
+    public void ActionMarketChange(Weapons weapon)
+    {
+        if (OnMarketChange != null) OnMarketChange(weapon);
+    }
+
     #endregion
 
     #region ENEMY KILLS

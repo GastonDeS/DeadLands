@@ -32845,6 +32845,9 @@ MonoBehaviour:
   _weapon: {fileID: 7565882}
   _ammo: {fileID: 2118028198}
   _level: {fileID: 1735117761}
+  _lifeHolder: {fileID: 760874217}
+  _rifleHolder: {fileID: 1033306603}
+  _shotGunHolder: {fileID: 1734516773}
 --- !u!4 &1458772730
 Transform:
   m_ObjectHideFlags: 0

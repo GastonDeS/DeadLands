@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Utilities;
 
 public class UIManager : MonoBehaviour
 {
@@ -19,6 +20,12 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI _level;
 
+    [SerializeField] private GameObject _lifeHolder;
+    [SerializeField] private GameObject _rifleHolder;
+    [SerializeField] private GameObject _shotGunHolder;
+
+    private float xPosChange;
+
     #endregion
 
     #region UNITY EVENTS
@@ -30,6 +37,9 @@ public class UIManager : MonoBehaviour
         EventManager.instance.OnWeaponAmmoChange    += OnWeaponAmmoChange;
         EventManager.instance.OnCoinsChange         += OnCoinsChange;
         EventManager.instance.OnLevelChange         += OnLevelChange;
+        EventManager.instance.OnMarketChange        += OnMarketChange;
+
+        xPosChange = (_rifleHolder.transform.position.x - _lifeHolder.transform.position.x)/2;
     }
 
     #endregion
@@ -49,6 +59,31 @@ public class UIManager : MonoBehaviour
     private void OnCoinsChange(int currentCoins) => _coinValue.text    = $"{currentCoins}";
 
     private void OnLevelChange(int level) => _level.text = $"{level}";
+
+    private void OnMarketChange(Weapons weapon) {
+        if (weapon == Weapons.AssaultRifle) { 
+            AcquireRifle();
+        } else {
+            AcquireShotGun();
+        }
+    }
+
+    private void AcquireRifle() {
+        _rifleHolder.SetActive(false);
+        if (_shotGunHolder.activeSelf) {
+            _shotGunHolder.transform.position -= new Vector3(xPosChange, 0f, 0f);
+        }
+        _lifeHolder.transform.position += new Vector3(xPosChange, 0f, 0f);
+    }
+
+    private void AcquireShotGun() {
+        _shotGunHolder.SetActive(false);
+        if (_rifleHolder.activeSelf) {
+            _rifleHolder.transform.position += new Vector3(xPosChange, 0f, 0f);
+        }
+            _lifeHolder.transform.position += new Vector3(xPosChange, 0f, 0f);
+
+    }
 
     #endregion
 }
